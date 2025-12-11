@@ -15,6 +15,7 @@ import {
 import Link from 'next/link';
 import AdUnit from '../components/AdUnit';
 import ResultView from '../components/ResultView';
+import QuestionSelect from '../components/QuestionSelect';
 
 // --- Types ---
 type Question = {
@@ -64,17 +65,7 @@ export default function DiagnosisPage() {
         }
     };
 
-    const handleAnswer = (value: number) => {
-        const currentQ = questions[currentQIndex];
-        const newAnswers = [...answers, { questionId: currentQ.id, value }];
-        setAnswers(newAnswers);
-
-        if (currentQIndex < questions.length - 1) {
-            setCurrentQIndex(currentQIndex + 1);
-        } else {
-            finishDiagnosis(newAnswers);
-        }
-    };
+    // Note: handleAnswer logic is now inline in the map loop for list-style selection
 
     const finishDiagnosis = async (finalAnswers: typeof answers) => {
         setStep('analyzing');
@@ -126,7 +117,7 @@ export default function DiagnosisPage() {
                 </div>
             </header>
 
-            <main className="flex-grow flex flex-col items-center justify-center p-6 max-w-2xl mx-auto w-full">
+            <main className="flex-grow flex flex-col items-center justify-start p-6 max-w-4xl mx-auto w-full">
 
                 {error && (
                     <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-xl border border-red-100 flex items-center gap-2 w-full">
@@ -163,38 +154,86 @@ export default function DiagnosisPage() {
 
                 {/* STEP: QUIZ */}
                 {step === 'quiz' && (
-                    <div className="w-full bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-slate-100 animate-in slide-in-from-right-8 duration-300">
-                        <div className="flex justify-between items-center mb-8 text-xs font-bold text-slate-400 tracking-wider">
-                            <span>QUESTION {currentQIndex + 1} / {questions.length}</span>
-                            <span>AXIS: {questions[currentQIndex].axis}</span>
-                        </div>
-
-                        <h2 className="text-2xl font-bold text-slate-800 mb-12 leading-snug min-h-[4rem]">
-                            {questions[currentQIndex].text}
-                        </h2>
-
-                        <div className="grid gap-3">
-                            <button onClick={() => handleAnswer(2)} className="p-4 rounded-xl bg-blue-50 text-blue-700 font-bold hover:bg-blue-100 transition-colors text-left border border-blue-100 hover:shadow-md">
-                                そう思う (Strongly Agree)
-                            </button>
-                            <button onClick={() => handleAnswer(1)} className="p-4 rounded-xl bg-slate-50 text-slate-700 font-medium hover:bg-slate-100 transition-colors text-left border border-slate-100 hover:shadow-xs">
-                                少しそう思う (Agree)
-                            </button>
-                            <button onClick={() => handleAnswer(-1)} className="p-4 rounded-xl bg-slate-50 text-slate-700 font-medium hover:bg-slate-100 transition-colors text-left border border-slate-100 hover:shadow-xs">
-                                あまりそう思わない (Disagree)
-                            </button>
-                            <button onClick={() => handleAnswer(-2)} className="p-4 rounded-xl bg-red-50 text-red-700 font-bold hover:bg-red-100 transition-colors text-left border border-red-100 hover:shadow-md">
-                                そう思わない (Strongly Disagree)
-                            </button>
-                        </div>
-
-                        <div className="mt-8">
-                            <div className="h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div className="w-full max-w-4xl animate-in slide-in-from-right-8 duration-300">
+                        {/* Progress indicator */}
+                        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mb-8 sticky top-20 z-20">
+                            <div className="flex justify-between items-center mb-3">
+                                <span className="text-sm font-bold text-slate-600">
+                                    進行度
+                                </span>
+                                <span className="text-sm font-bold text-purple-600">
+                                    {Math.round((answers.length / questions.length) * 100)}%
+                                </span>
+                            </div>
+                            <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
                                 <div
-                                    className="h-full bg-blue-600 transition-all duration-300 ease-out"
-                                    style={{ width: `${((currentQIndex + 1) / questions.length) * 100}%` }}
+                                    className="h-full bg-gradient-to-r from-purple-500 to-teal-500 transition-all duration-500 ease-out"
+                                    style={{ width: `${(answers.length / questions.length) * 100}%` }}
                                 />
                             </div>
+                        </div>
+
+                        {/* Questions List */}
+                        <div className="space-y-6 mb-12">
+                            {questions
+                                .slice(currentQIndex, currentQIndex + 5)
+                                .map((q, idx) => {
+                                    const answer = answers.find(a => a.questionId === q.id)?.value ?? null;
+
+                                    return (
+                                        <div key={q.id} className="bg-white p-8 md:p-10 rounded-3xl shadow-md border-b-4 border-slate-100 transition-transform hover:scale-[1.01]">
+                                            <h2 className="text-xl md:text-2xl font-bold text-slate-700 mb-10 text-center leading-relaxed">
+                                                {q.text}
+                                            </h2>
+
+                                            <QuestionSelect
+                                                value={answer}
+                                                onSelect={(val) => {
+                                                    const newAnswers = [...answers];
+                                                    const existingIdx = newAnswers.findIndex(a => a.questionId === q.id);
+                                                    if (existingIdx >= 0) {
+                                                        newAnswers[existingIdx].value = val;
+                                                    } else {
+                                                        newAnswers.push({ questionId: q.id, value: val });
+                                                    }
+                                                    setAnswers(newAnswers);
+                                                }}
+                                                agreeLabel="そう思う"
+                                                disagreeLabel="そう思わない"
+                                            />
+                                        </div>
+                                    );
+                                })}
+                        </div>
+
+                        {/* Navigation Actions */}
+                        <div className="flex justify-center pb-20">
+                            <button
+                                onClick={() => {
+                                    // Check if all displayed questions are answered
+                                    const currentQuestions = questions.slice(currentQIndex, currentQIndex + 5);
+                                    const allAnswered = currentQuestions.every(q => answers.some(a => a.questionId === q.id));
+
+                                    if (!allAnswered) {
+                                        alert("このページのすべての質問に回答してください。");
+                                        return;
+                                    }
+
+                                    const nextIndex = currentQIndex + 5;
+                                    if (nextIndex < questions.length) {
+                                        setCurrentQIndex(nextIndex);
+                                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    } else {
+                                        finishDiagnosis(answers);
+                                    }
+                                }}
+                                className="group relative px-10 py-4 bg-gradient-to-r from-slate-800 to-slate-900 text-white font-bold rounded-full shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <span className="flex items-center gap-2 text-lg">
+                                    {(currentQIndex + 5) >= questions.length ? '診断結果を見る' : '次へ進む'}
+                                    <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                                </span>
+                            </button>
                         </div>
                     </div>
                 )}

@@ -10,9 +10,20 @@ type AdUnitProps = {
 
 export default function AdUnit({ slotId, format = 'auto', className = '' }: AdUnitProps) {
     const adInit = useRef(false);
+    const insRef = useRef<HTMLModElement>(null);
 
     useEffect(() => {
+        // Skip in development
+        if (process.env.NODE_ENV === 'development') return;
+
+        // Skip if already initialized
         if (adInit.current) return;
+
+        // Check if the ins element already has ads
+        if (insRef.current && insRef.current.getAttribute('data-adsbygoogle-status')) {
+            return;
+        }
+
         try {
             // @ts-ignore
             (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -20,6 +31,11 @@ export default function AdUnit({ slotId, format = 'auto', className = '' }: AdUn
         } catch (err) {
             console.error('AdSense error', err);
         }
+
+        // Cleanup function
+        return () => {
+            adInit.current = false;
+        };
     }, []);
 
     if (process.env.NODE_ENV === 'development') {
@@ -33,6 +49,7 @@ export default function AdUnit({ slotId, format = 'auto', className = '' }: AdUn
     return (
         <div className={`overflow-hidden ${className}`}>
             <ins
+                ref={insRef}
                 className="adsbygoogle"
                 style={{ display: 'block' }}
                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" // Replace with real ID or use Context
