@@ -12,10 +12,13 @@ import {
     ThumbsDown,
     Briefcase
 } from 'lucide-react';
+// --- Imports ---
 import Link from 'next/link';
+
 import AdUnit from '../components/AdUnit';
 import ResultView from '../components/ResultView';
 import QuestionSelect from '../components/QuestionSelect';
+import { questions as staticQuestions, typeDetails } from '../lib/mbti-data';
 
 // --- Types ---
 type Question = {
@@ -33,55 +36,65 @@ type DiagnosisResult = {
     weaknesses: string[];
 };
 
-// --- API Client ---
-const API_URL = '/api';
-
 export default function DiagnosisPage() {
     const [step, setStep] = useState<'intro' | 'quiz' | 'analyzing' | 'result'>('intro');
-    const [questions, setQuestions] = useState<Question[]>([]);
+    // Initialize directly from static data
+    const [questions] = useState<Question[]>(staticQuestions as Question[]);
     const [currentQIndex, setCurrentQIndex] = useState(0);
     const [answers, setAnswers] = useState<{ questionId: string, value: number }[]>([]);
     const [result, setResult] = useState<DiagnosisResult | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        const fetchQuestions = async () => {
-            try {
-                const res = await fetch(`${API_URL}/questions`);
-                if (!res.ok) throw new Error("AIサーバーとの通信に失敗しました。");
-                const data = await res.json();
-                setQuestions(data);
-            } catch (err) {
-                console.error(err);
-                setError("AIコアへの接続エラー。Backendが起動しているか確認してください。");
-            }
-        };
-        fetchQuestions();
-    }, []);
+    // No useEffect fetch needed anymore
 
     const handleStart = () => {
-        if (questions.length > 0) {
-            setStep('quiz');
-        }
+        setStep('quiz');
     };
-
-    // Note: handleAnswer logic is now inline in the map loop for list-style selection
 
     const finishDiagnosis = async (finalAnswers: typeof answers) => {
         setStep('analyzing');
-        try {
-            const res = await fetch(`${API_URL}/diagnose`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ answers: finalAnswers }),
-            });
-            if (!res.ok) throw new Error("診断処理に失敗しました。");
-            const data = await res.json();
 
-            setTimeout(() => {
-                setResult(data);
-                setStep('result');
-            }, 3000);
+        // Calculate Logic locally (Client-Side)
+        try {
+            // Simulate processing delay for UX
+            await new Promise(resolve => setTimeout(resolve, 1500));
+
+            const scores: { [key: string]: number } = { "R": 0, "I": 0, "F": 0, "S": 0 };
+
+            for (const ans of finalAnswers) {
+                const q = questions.find(item => item.id === ans.questionId);
+                if (q) {
+                    let val = ans.value;
+                    if (q.direction === "left") {
+                        val = -val;
+                    }
+                    scores[q.axis] += val;
+                }
+            }
+
+            // Scoring Logic
+            let mbti = "";
+            // F Axis: Real(>0) -> E, Digital(else) -> I
+            mbti += scores["F"] > 0 ? "E" : "I";
+            // I Axis: Edit(>0) -> S, Zero(else) -> N
+            mbti += scores["I"] > 0 ? "S" : "N";
+            // R Axis: Logic(else) -> T, Vibe(>0) -> F (Wait, backend says: if R > 0 (Vibe) -> F, else T)
+            mbti += scores["R"] > 0 ? "F" : "T";
+            // S Axis: Anti(>0) -> P, Merge(else) -> J
+            mbti += scores["S"] > 0 ? "P" : "J";
+
+            const detail = typeDetails[mbti] || { strengths: [], weaknesses: [] };
+
+            const finalResult: DiagnosisResult = {
+                type: mbti,
+                scores: scores,
+                detail: "Diagnosis complete",
+                strengths: detail.strengths,
+                weaknesses: detail.weaknesses
+            };
+
+            setResult(finalResult);
+            setStep('result');
 
         } catch (err) {
             console.error(err);
