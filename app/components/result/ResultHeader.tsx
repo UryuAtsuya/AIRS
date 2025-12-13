@@ -15,7 +15,7 @@ type ResultHeaderProps = {
 export default function ResultHeader({ persona, onRetake, showRetakeButton = false, survivalRate }: ResultHeaderProps) {
     // Map code to a gradient style if image fails or as overlay
     // Increased transparency (lower opacity values) to make characters more visible
-    const gradientOverlay = "bg-gradient-to-r from-slate-900 via-slate-900/60 to-transparent";
+    const gradientOverlay = "bg-gradient-to-r from-slate-900/80 via-slate-900/30 to-transparent";
 
     // Helper to determine banner image path
     const getBannerPath = (code: string) => {
@@ -33,7 +33,7 @@ export default function ResultHeader({ persona, onRetake, showRetakeButton = fal
                     src={getBannerPath(persona.code)}
                     alt={`${persona.nameJa} Background`}
                     fill
-                    className="object-cover opacity-90"
+                    className="object-cover opacity-100"
                     priority
                 />
             </div>
@@ -41,7 +41,7 @@ export default function ResultHeader({ persona, onRetake, showRetakeButton = fal
             {/* 2. Gradient Overlay for Text Readability (Left Side Darker) */}
             <div className={`absolute inset-0 z-10 ${gradientOverlay}`}></div>
 
-            <div className="relative z-20 max-w-6xl mx-auto px-6 py-16 md:py-24 flex flex-col-reverse md:flex-row items-center gap-10">
+            <div className="relative z-20 max-w-7xl mx-auto px-6 py-16 md:py-24 flex flex-col-reverse md:flex-row items-center gap-10">
 
                 {/* Left: Text Content */}
                 <div className="flex-1 text-center md:text-left space-y-6">

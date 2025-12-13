@@ -6,33 +6,33 @@ export type Question = {
 };
 
 export const questions: Question[] = [
-    // R Axis (Reasoning)
-    { id: "r1", text: "感情よりも論理的な整合性を優先すべきだと思う。", axis: "R", direction: "left" },
-    { id: "r2", text: "その場の「ノリ」や「空気」で物事を決める方がうまくいく。", axis: "R", direction: "right" },
-    { id: "r3", text: "議論において、相手の気持ちよりも事実の正確さが重要だ。", axis: "R", direction: "left" },
-    { id: "r4", text: "説明できない直感を信じて行動することがよくある。", axis: "R", direction: "right" },
-    { id: "r5", text: "AIの出力結果が正しくても、なんとなく気に入らなければ採用しない。", axis: "R", direction: "right" },
+    // R Axis (Logic vs Vibe) -> T vs F
+    { id: "r1", text: "AIの回答を採用する時は、必ずソース（情報源）を確認して事実確認を行う。", axis: "R", direction: "left" },
+    { id: "r2", text: "画像生成AIのプロンプトは、理論的に組むより感覚的に試行錯誤する方が楽しい。", axis: "R", direction: "right" },
+    { id: "r3", text: "感情的な悩み相談よりも、データの分析やコード生成にAIを使いたい。", axis: "R", direction: "left" },
+    { id: "r4", text: "AIが提案したアイデアでも、自分の直感に合わなければ採用しない。", axis: "R", direction: "right" },
+    { id: "r5", text: "AIの仕組み（アルゴリズム）まで理解していないと気が済まない。", axis: "R", direction: "left" },
 
-    // I Axis (Innovation)
-    { id: "i1", text: "誰かが作ったものを改良するより、ゼロから新しいものを作りたい。", axis: "I", direction: "left" },
-    { id: "i2", text: "既存の仕組みを効率化・最適化することに喜びを感じる。", axis: "I", direction: "right" },
-    { id: "i3", text: "前例のないアイデアを考える時間が一番楽しい。", axis: "I", direction: "left" },
-    { id: "i4", text: "突飛なアイデアよりも、現実的に実装可能な解決策を好む。", axis: "I", direction: "right" },
-    { id: "i5", text: "AIには「創造」よりも「編集・要約」を任せたい。", axis: "I", direction: "right" },
+    // I Axis (Zero/Creation vs Edit/Efficiency) -> N vs S
+    { id: "i1", text: "既存の文章の要約や校正（リライト）にAIを使うことが多い。", axis: "I", direction: "right" },
+    { id: "i2", text: "まだ世の中にない全く新しいサービスやアイデアをAIとゼロから考えたい。", axis: "I", direction: "left" },
+    { id: "i3", text: "AIには「効率化」よりも「創造性の拡張」を求めている。", axis: "I", direction: "left" },
+    { id: "i4", text: "ルーチンワークや事務作業をAIに自動化させることに喜びを感じる。", axis: "I", direction: "right" },
+    { id: "i5", text: "自分では思いつかないような突飛な画像を生成して楽しんでいる。", axis: "I", direction: "left" },
 
-    // F Axis (Field)
-    { id: "f1", text: "休日は家でネットをするより、外に出て人に会いたい。", axis: "F", direction: "right" },
-    { id: "f2", text: "メタバースやVR空間だけで一生を過ごすことには抵抗がある。", axis: "F", direction: "right" },
-    { id: "f3", text: "SNS上でのコミュニケーションの方が、対面よりも自分を出せる。", axis: "F", direction: "left" },
-    { id: "f4", text: "身体的な感覚や体験（五感）よりも、情報や知識を重視する。", axis: "F", direction: "left" },
-    { id: "f5", "text": "将来、肉体を捨ててデジタル意識として生きられるならそうしたい。", axis: "F", direction: "left" },
+    // F Axis (Digital vs Real) -> I vs E
+    { id: "f1", text: "リアルな会議よりも、SlackやDiscord上のテキストコミュニケーションの方が楽だ。", axis: "F", direction: "left" },
+    { id: "f2", text: "休日はデジタルデバイスから離れて、自然の中で過ごしたい。", axis: "F", direction: "right" },
+    { id: "f3", text: "メタバースやVR空間で仕事が完結する未来に憧れる。", axis: "F", direction: "left" },
+    { id: "f4", text: "Zoomやチャットよりも、実際に会って話した方が信頼関係は築けると思う。", axis: "F", direction: "right" },
+    { id: "f5", text: "AIキャラクターとの会話に、人間との会話以上の心地よさを感じることがある。", axis: "F", direction: "left" },
 
-    // S Axis (Stance)
-    { id: "s1", "text": "みんなが賛成していることでも、あえて反対意見を言いたくなる。", axis: "S", direction: "right" },
-    { id: "s2", "text": "組織やチームの和を乱すような行動は避けるべきだ。", axis: "S", direction: "left" },
-    { id: "s3", "text": "流行り廃りにはあまり興味がなく、自分のスタイルを貫きたい。", axis: "S", direction: "right" },
-    { id: "s4", "text": "ルールやマニュアルがある方が、安心して作業に取り組める。", axis: "S", direction: "left" },
-    { id: "s5", "text": "権威や常識に対して、常に疑いの目を持っている。", axis: "S", direction: "right" },
+    // S Axis (Order/Merge vs Chaos/Anti) -> J vs P
+    { id: "s1", "text": "AIの利用ルールやガイドラインは、厳格に守られるべきだと思う。", axis: "S", direction: "left" },
+    { id: "s2", "text": "「脱獄（ジェイルブレイク）」のような、AIの制限を突破するハックに興味がある。", axis: "S", direction: "right" },
+    { id: "s3", "text": "みんなが使っている定番のプロンプトや型（テンプレート）を使うのが安心だ。", axis: "S", direction: "left" },
+    { id: "s4", "text": "AIを使って、既存の業界や常識をひっくり返したいという野望がある。", axis: "S", direction: "right" },
+    { id: "s5", "text": "AIにも倫理観や道徳（モラル）は絶対に必要だと思う。", axis: "S", direction: "left" },
 ];
 
 export const typeDetails: Record<string, { strengths: string[]; weaknesses: string[] }> = {

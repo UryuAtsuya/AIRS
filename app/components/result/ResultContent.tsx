@@ -22,7 +22,7 @@ export default function ResultContent({ persona }: ResultContentProps) {
     return (
         <div className="bg-white pb-20">
             {/* 1. Summary Section */}
-            <section className="max-w-4xl mx-auto px-6 py-12 border-b border-slate-100">
+            <section className="max-w-6xl mx-auto px-6 py-12 border-b border-slate-100">
                 <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
                     <span className="w-1.5 h-6 rounded-full bg-slate-800"></span>
                     {persona.summary3.title}
@@ -40,7 +40,7 @@ export default function ResultContent({ persona }: ResultContentProps) {
             </section>
 
             {/* 2. Strengths Section */}
-            <section className="max-w-4xl mx-auto px-6 py-12 border-b border-slate-100">
+            <section className="max-w-6xl mx-auto px-6 py-12 border-b border-slate-100">
                 <h3 className="text-xl font-bold text-slate-900 mb-8 flex items-center gap-2">
                     <span className="w-1.5 h-6 rounded-full" style={{ backgroundColor: persona.accent.primary }}></span>
                     {persona.strengths.title}
@@ -58,12 +58,12 @@ export default function ResultContent({ persona }: ResultContentProps) {
             </section>
 
             {/* 3. Roles Section */}
-            <section className="max-w-4xl mx-auto px-6 py-12 border-b border-slate-100">
+            <section className="max-w-6xl mx-auto px-6 py-12 border-b border-slate-100">
                 <h3 className="text-xl font-bold text-slate-900 mb-8 flex items-center gap-2">
                     <span className="w-1.5 h-6 rounded-full" style={{ backgroundColor: persona.accent.primary }}></span>
                     {persona.roles.title}
                 </h3>
-                <div className="space-y-4">
+                <div className="grid md:grid-cols-2 gap-4">
                     {persona.roles.items.map((role, idx) => (
                         <div key={idx} className="flex items-center justify-between p-5 rounded-xl border border-slate-100 hover:border-slate-200 transition-colors">
                             <div>
@@ -79,7 +79,7 @@ export default function ResultContent({ persona }: ResultContentProps) {
             </section>
 
             {/* 4. Strategy Section */}
-            <section className="max-w-4xl mx-auto px-6 py-12 border-b border-slate-100">
+            <section className="max-w-6xl mx-auto px-6 py-12 border-b border-slate-100">
                 <h3 className="text-xl font-bold text-slate-900 mb-8 flex items-center gap-2">
                     <span className="w-1.5 h-6 rounded-full" style={{ backgroundColor: persona.accent.primary }}></span>
                     {persona.strategy.title}
@@ -105,7 +105,7 @@ export default function ResultContent({ persona }: ResultContentProps) {
             </section>
 
             {/* 5. Risks Section (Collapsed by default) */}
-            <section className="max-w-4xl mx-auto px-6 py-12 border-b border-slate-100">
+            <section className="max-w-6xl mx-auto px-6 py-12 border-b border-slate-100">
                 <button
                     onClick={() => setIsRiskOpen(!isRiskOpen)}
                     className="w-full flex items-center justify-between p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:bg-slate-100 transition-colors"

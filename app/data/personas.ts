@@ -59,9 +59,26 @@ const mapToPersona = (t: AirsType): Persona => {
         strategy: {
             title: "生存戦略ロードマップ",
             steps: [
-                { title: "AIを武器にする", action: t.aiCollaborationStrategy },
-                { title: "人間的価値を磨く", action: "AIにはできない対人スキルや創造性を強化してください。" },
-                { title: "ポジションを確立する", action: t.strategy }
+                {
+                    title: "AI共創タクティクス",
+                    action: t.aiCollaborationStrategy
+                },
+                {
+                    title: "弱点補完アプローチ",
+                    action: (() => {
+                        switch (t.group) {
+                            case "Analysts": return "論理的正しさだけでなく、人間的な「納得感」や「感情」を設計に組み込むことで、AIにはない説得力を獲得できます。";
+                            case "Diplomats": return "あなたの理想やビジョンを、AIを使って具体的な数値やデータに翻訳するスキルを磨いてください。理想を語るだけでなく、実証する力を。";
+                            case "Sentinels": return "過去の慣例に固執せず、AIによる新しいプロセスを積極的に導入する「変化のリーダー」になってください。守るために、変えるのです。";
+                            case "Explorers": return "短期的な衝動だけでなく、AIを使って長期的なシミュレーションを行い、リスクを管理する習慣をつけてください。アクセルだけでなく、ナビを持つこと。";
+                            default: return "AIには代替できない、あなた独自の人間的価値（共感、創造、即興）を磨き続けてください。";
+                        }
+                    })()
+                },
+                {
+                    title: "市場価値の確立",
+                    action: t.strategy
+                }
             ]
         },
         risks: {
