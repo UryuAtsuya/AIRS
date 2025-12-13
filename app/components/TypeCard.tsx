@@ -15,6 +15,22 @@ export default function TypeCard({ type }: TypeCardProps) {
     const ringColor = isHighRisk ? 'ring-red-100' : isSafe ? 'ring-blue-100' : 'ring-slate-100';
     const badgeColor = isHighRisk ? 'bg-red-50 text-red-600' : isSafe ? 'bg-cyan-50 text-cyan-600' : 'bg-slate-100 text-slate-600';
 
+    // Manual adjustments for character face focus per type
+    // Banners are wide, characters are typically on the right side.
+    // Adjust percentages (X% Y%) to center mainly on the face/upper body.
+    const positionMap: Record<string, string> = {
+        // Analysts
+        INTJ: '70% 20%', INTP: '50% 15%', ENTJ: '80% 15%', ENTP: '75% 20%',
+        // Diplomats
+        INFJ: '60% 20%', INFP: '50% 20%', ENFJ: '70% 15%', ENFP: '60% 15%',
+        // Sentinels
+        ISTJ: '70% 20%', ISFJ: '60% 20%', ESTJ: '80% 20%', ESFJ: '65% 15%',
+        // Explorers
+        ISTP: '60% 20%', ISFP: '50% 20%', ESTP: '75% 15%', ESFP: '65% 20%',
+    };
+
+    const objectPosition = positionMap[type.code] || 'center top';
+
     return (
         <Link href={`/types/${type.code}`}>
             <div className={`card-soft-cyber p-6 h-full flex flex-col group relative overflow-hidden ring-1 ${ringColor}`}>
@@ -35,13 +51,13 @@ export default function TypeCard({ type }: TypeCardProps) {
 
                 {/* Character Image */}
                 <div className="flex justify-center mb-4 relative z-10">
-                    <div className="w-24 h-24 relative">
+                    <div className="w-24 h-24 relative rounded-full overflow-hidden border-2 border-slate-100 shadow-sm">
                         <Image
-                            src={`/characters/${type.code}.png`}
+                            src={`/characters/banners/${type.code}.jpg`}
                             alt={`${type.name} character`}
-                            width={96}
-                            height={96}
-                            className="object-contain"
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            style={{ objectPosition: objectPosition }}
                         />
                     </div>
                 </div>

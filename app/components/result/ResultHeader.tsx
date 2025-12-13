@@ -2,100 +2,122 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { AirsType, groupColors } from '../../types/airs';
+import { Persona } from '../../data/personas';
 import { Share2, RefreshCw } from 'lucide-react';
 
 type ResultHeaderProps = {
-    type: AirsType;
+    persona: Persona;
     onRetake?: () => void;
     showRetakeButton?: boolean;
+    survivalRate?: number;
 };
 
-export default function ResultHeader({ type, onRetake, showRetakeButton = false }: ResultHeaderProps) {
-    // Determine gradient based on group
-    const getGradientColors = () => {
-        switch (type.group) {
-            case "Analysts": return "from-purple-600 to-purple-900";
-            case "Diplomats": return "from-green-600 to-green-900";
-            case "Sentinels": return "from-blue-600 to-blue-900";
-            case "Explorers": return "from-yellow-500 to-yellow-800";
-            default: return "from-slate-600 to-slate-900";
-        }
-    };
+export default function ResultHeader({ persona, onRetake, showRetakeButton = false, survivalRate }: ResultHeaderProps) {
+    // Map code to a gradient style if image fails or as overlay
+    // Increased transparency (lower opacity values) to make characters more visible
+    const gradientOverlay = "bg-gradient-to-r from-slate-900 via-slate-900/60 to-transparent";
 
-    // Calculate survival rate color
-    const getSurvivalColor = (rate: number) => {
-        if (rate >= 90) return "text-cyan-400";
-        if (rate < 60) return "text-red-400";
-        return "text-white";
+    // Helper to determine banner image path
+    const getBannerPath = (code: string) => {
+        // All banners are now available as JPGs
+        return `/characters/banners/${code}.jpg`;
     };
 
     return (
-        <div className={`relative overflow-hidden bg-gradient-to-br ${getGradientColors()} pt-20 pb-32 text-white`}>
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10 bg-[url('/grid.svg')]"></div>
-
-            {/* Wave Decoration at Bottom */}
-            <div className="absolute bottom-0 left-0 right-0 translate-y-1">
-                <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
-                    <path d="M0 40L48 45C96 50 192 60 288 63.3C384 66.7 480 63.3 576 56.7C672 50 768 40 864 36.7C960 33.3 1056 36.7 1152 43.3C1248 50 1344 60 1392 65L1440 70V100H1392C1344 100 1248 100 1152 100C1056 100 960 100 864 100C768 100 672 100 576 100C480 100 384 100 288 100C192 100 96 100 0 100V40Z" className="fill-slate-50" />
-                </svg>
+        <div className="relative w-full overflow-hidden bg-slate-900 text-white">
+            {/* 1. Background Image Layer */}
+            {/* In a real scenario, this would be specific per type or a generic cool bg */}
+            <div className="absolute inset-0 z-0">
+                {/* Type-Specific Banner Background */}
+                <Image
+                    src={getBannerPath(persona.code)}
+                    alt={`${persona.nameJa} Background`}
+                    fill
+                    className="object-cover opacity-90"
+                    priority
+                />
             </div>
 
-            <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
-                {/* Survival Score Floating Badge */}
-                <div className="inline-flex flex-col items-center mb-6 animate-fade-in-up">
-                    <div className="text-xs font-bold tracking-[0.2em] text-white/70 uppercase mb-2">Survival Rate</div>
-                    <div className={`text-6xl md:text-8xl font-black tracking-tight ${getSurvivalColor(type.survivalRate)} drop-shadow-2xl`}>
-                        {type.survivalRate}%
-                    </div>
-                </div>
+            {/* 2. Gradient Overlay for Text Readability (Left Side Darker) */}
+            <div className={`absolute inset-0 z-10 ${gradientOverlay}`}></div>
 
-                {/* Type Info */}
-                <div className="mb-10 animate-fade-in-up delay-100">
-                    <h2 className="text-xl md:text-2xl font-bold text-white/90 tracking-widest mb-2 uppercase">
-                        {type.group}
-                    </h2>
-                    <h1 className="text-5xl md:text-7xl font-black mb-4 tracking-tight drop-shadow-md">
-                        {type.name}
+            <div className="relative z-20 max-w-6xl mx-auto px-6 py-16 md:py-24 flex flex-col-reverse md:flex-row items-center gap-10">
+
+                {/* Left: Text Content */}
+                <div className="flex-1 text-center md:text-left space-y-6">
+                    <div className="inline-block px-4 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-xs font-bold tracking-[0.2em] uppercase">
+                        A.I.R.S. TYPE : {persona.code}
+                    </div>
+
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight">
+                        <span className="block text-2xl md:text-3xl font-bold opacity-80 mb-2">AI時代の{persona.nameJa}:</span>
+                        {persona.code} 進化系
                     </h1>
-                    <div className="inline-block px-4 py-1 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm text-sm font-bold tracking-wider mb-6">
-                        {type.code}-A / {type.engName}
-                    </div>
-                    <p className="text-lg md:text-2xl font-medium text-white/90 max-w-3xl mx-auto leading-relaxed">
-                        &quot;{type.aiPhrase}&quot;
+
+                    <p className="text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed font-medium">
+                        &quot;{persona.catchphrase}&quot;
+                        <br />
+                        <span className="text-sm mt-2 block opacity-60 font-normal">
+                            {persona.nameJa}は独創的かつ戦略的に物事を考える傾向があり... (Sample description placeholder)
+                        </span>
                     </p>
+
+                    {/* Survival Rate Badge (Integrated) */}
+                    {survivalRate !== undefined && (
+                        <div className="inline-flex items-center gap-4 mt-4 p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                            <div className="text-right">
+                                <div className="text-[10px] uppercase tracking-widest text-slate-400">Survival Rate</div>
+                                <div className="text-4xl font-black text-cyan-400 text-shadow">{survivalRate}%</div>
+                            </div>
+                            <div className="h-10 w-px bg-white/20"></div>
+                            <div className="text-xs text-white/60 text-left max-w-[12rem]">
+                                あなたのAI社会生存確率は極めて高い水準です。
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Action Buttons */}
+                    <div className="flex gap-4 justify-center md:justify-start mt-8">
+                        {showRetakeButton && onRetake && (
+                            <button
+                                onClick={onRetake}
+                                className="px-6 py-3 rounded-full bg-white text-slate-900 font-bold hover:bg-slate-100 transition-all flex items-center gap-2 shadow-lg"
+                            >
+                                <RefreshCw size={18} />
+                                再診断
+                            </button>
+                        )}
+                        <button className="px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/30 text-white font-bold hover:bg-white/20 transition-all flex items-center gap-2">
+                            <Share2 size={18} />
+                            結果をシェア
+                        </button>
+                    </div>
                 </div>
 
-                {/* Character Image */}
-                <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto mb-10 animate-scale-in delay-200">
-                    <div className="absolute inset-0 bg-white/20 rounded-full blur-3xl scale-75 animate-pulse"></div>
+                {/* Right: Character Visual (Integrated into background) */}
+                {/*
+                <div className="flex-1 relative w-full max-w-md md:max-w-lg aspect-square flex items-center justify-center">
+                    Glowing effect behind character
+                <div
+                    className="absolute inset-0 rounded-full blur-[100px] opacity-40 animate-pulse"
+                    style={{ backgroundColor: persona.accent.primary }}
+                ></div>
+
+                <div className="relative w-64 h-64 md:w-96 md:h-96">
                     <Image
-                        src={`/characters/${type.code}.png`}
-                        alt={type.name}
+                        src={getBannerPath(persona.code)}
+                        alt={`${persona.nameJa} Background`}
                         fill
                         className="object-contain drop-shadow-2xl relative z-10"
                         priority
                     />
-                </div>
-
-                {/* Actions */}
-                <div className="flex gap-4 justify-center animate-fade-in-up delay-300">
-                    {showRetakeButton && onRetake && (
-                        <button
-                            onClick={onRetake}
-                            className="px-6 py-3 rounded-full bg-white text-slate-900 font-bold hover:bg-slate-100 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 flex items-center gap-2"
-                        >
-                            <RefreshCw size={18} />
-                            再診断する
-                        </button>
-                    )}
-                    <button className="px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm text-white font-bold hover:bg-white/20 transition-all border border-white/20 flex items-center gap-2">
-                        <Share2 size={18} />
-                        結果をシェア
-                    </button>
+                    Tech holographic rings mockup (CSS)
+                    <div className="absolute inset-0 border-2 border-white/20 rounded-full animate-[spin_10s_linear_infinite] scale-110"></div>
+                    <div className="absolute inset-0 border border-white/10 rounded-full animate-[spin_15s_linear_infinite_reverse] scale-125 border-dashed"></div>
                 </div>
             </div>
-        </div>
+                */}
+            </div>
+        </div >
     );
 }

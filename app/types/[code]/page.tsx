@@ -4,6 +4,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import AdUnit from '../../components/AdUnit';
 import { airsTypes } from '../airs';
+import { getPersona } from '../../data/personas';
 import ResultHeader from '../../components/result/ResultHeader';
 import TraitBars from '../../components/result/TraitBars';
 import ResultContent from '../../components/result/ResultContent';
@@ -18,7 +19,9 @@ export default async function TypeDetailPage({ params }: { params: Promise<{ cod
     const { code } = await params;
     const type = airsTypes.find((t) => t.code === code.toUpperCase());
 
-    if (!type) {
+    const persona = getPersona(code);
+
+    if (!type || !persona) {
         return notFound();
     }
 
@@ -48,7 +51,7 @@ export default async function TypeDetailPage({ params }: { params: Promise<{ cod
 
                 {/* Reusing the Result Components for consistent design */}
 
-                <ResultHeader type={type} showRetakeButton={false} />
+                <ResultHeader persona={persona} showRetakeButton={false} />
 
                 {/* AdUnit Top */}
                 <div className="max-w-4xl mx-auto px-6 mt-8">
@@ -59,7 +62,7 @@ export default async function TypeDetailPage({ params }: { params: Promise<{ cod
                     <TraitBars scores={scores} group={type.group} />
                 </div>
 
-                <ResultContent type={type} />
+                <ResultContent persona={persona} />
 
                 {/* AdUnit Bottom */}
                 <div className="max-w-4xl mx-auto px-6 mb-12">

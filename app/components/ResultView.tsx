@@ -1,5 +1,6 @@
 import React from 'react';
 import { airsTypes, AirsType } from '../types/airs';
+import { getPersona } from '../data/personas';
 import ResultHeader from './result/ResultHeader';
 import TraitBars from './result/TraitBars';
 import ResultContent from './result/ResultContent';
@@ -19,8 +20,9 @@ type ResultViewProps = {
 export default function ResultView({ result, onRetake }: ResultViewProps) {
     // Find static data
     const staticData: AirsType | undefined = airsTypes.find(t => t.id === result.type);
+    const persona = getPersona(result.type);
 
-    if (!staticData) {
+    if (!staticData || !persona) {
         return <div className="p-10 text-center text-red-500 font-bold">Error: Unknown Type</div>;
     }
 
@@ -39,7 +41,8 @@ export default function ResultView({ result, onRetake }: ResultViewProps) {
 
             {/* 1. Header Area with Hero & Survival Rate */}
             <ResultHeader
-                type={staticData}
+                persona={persona}
+                survivalRate={staticData.survivalRate}
                 onRetake={onRetake}
                 showRetakeButton={true}
             />
@@ -54,9 +57,7 @@ export default function ResultView({ result, onRetake }: ResultViewProps) {
 
             {/* 3. Detailed Content (Desc, Strategy, Risk) */}
             <ResultContent
-                type={staticData}
-                strengths={result.strengths}
-                weaknesses={result.weaknesses}
+                persona={persona}
             />
         </div>
     );
