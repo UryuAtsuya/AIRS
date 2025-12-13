@@ -34,7 +34,7 @@ type DiagnosisResult = {
 };
 
 // --- API Client ---
-const API_URL = 'http://localhost:8000';
+const API_URL = '/api';
 
 export default function DiagnosisPage() {
     const [step, setStep] = useState<'intro' | 'quiz' | 'analyzing' | 'result'>('intro');
