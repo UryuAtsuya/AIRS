@@ -1,6 +1,5 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import AdUnit from '../../components/AdUnit';
 import { airsTypes } from '../airs';
@@ -45,7 +44,6 @@ export default async function TypeDetailPage({ params }: { params: Promise<{ cod
 
     return (
         <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
-            <Header />
 
             <main className="flex-grow w-full">
 

@@ -53,7 +53,7 @@ export default function TypeCard({ type }: TypeCardProps) {
                 <div className="flex justify-center mb-4 relative z-10">
                     <div className="w-24 h-24 relative rounded-full overflow-hidden border-2 border-slate-100 shadow-sm">
                         <Image
-                            src={`/characters/banners/${type.code}.jpg`}
+                            src={`/characters/banners_clean/${type.code}.png`}
                             alt={`${type.name} character`}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-110"

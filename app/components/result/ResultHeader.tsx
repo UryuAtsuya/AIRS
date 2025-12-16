@@ -19,8 +19,8 @@ export default function ResultHeader({ persona, onRetake, showRetakeButton = fal
 
     // Helper to determine banner image path
     const getBannerPath = (code: string) => {
-        // All banners are now available as JPGs
-        return `/characters/banners/${code}.jpg`;
+        // Use the new text-free banners (PNG)
+        return `/characters/banners_clean/${code}.png`;
     };
 
     const handleShare = async () => {
