@@ -22,17 +22,15 @@ export default function LandingPage() {
       <main className="flex-grow flex flex-col justify-center max-w-4xl mx-auto px-6 py-20 text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
         <div>
           <div className="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-800 text-xs font-bold mb-8 tracking-wider uppercase">
-            AI Era Career Optimization System
+            AI時代のキャリア生存戦略診断
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-8 tracking-tight leading-110%">
-            たった10分で、あなたの
+          <h1 className="text-3xl md:text-5xl font-black text-slate-900 mb-8 tracking-tight leading-normal">
+            あなたの仕事、5年後に消滅していませんか？
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">
-              『AI時代の最適キャリア』
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500 mt-2 block">
+              あなたの『AI時代の最適キャリア』がわかります
             </span>
-            <br />
-            がわかります
           </h1>
 
           <p className="text-lg text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed font-medium">
@@ -46,7 +44,7 @@ export default function LandingPage() {
                 <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                 <span className="relative flex items-center justify-center gap-2">
                   <Sparkles size={20} className="group-hover:animate-pulse" />
-                  診断テストをする
+                  診断する
                   <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </span>
               </button>

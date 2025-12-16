@@ -90,29 +90,55 @@ const mapToPersona = (t: AirsType): Persona => {
         nextActions: {
             title: "次のアクション",
             disclosure: "※本ページはプロモーションが含まれています",
-            cards: [
-                {
-                    label: "ハイクラス転職",
-                    why: "あなたの専門性は高く評価されます。",
-                    ctaText: "求人を見る",
-                    href: "https://example.com/job",
-                    isAd: true
-                },
-                {
-                    label: "スキルアップ",
-                    why: "AIスキルを補完しましょう。",
-                    ctaText: "講座を探す",
-                    href: "https://example.com/skill",
-                    isAd: true
-                },
-                {
+            cards: (() => {
+                const commonCard = {
                     label: "自己分析",
-                    why: "より深い適性を知るために。",
-                    ctaText: "詳しく診断",
+                    why: "より深く自分を知るための精密診断",
+                    ctaText: "診断を受ける",
                     href: "https://example.com/deep",
                     isAd: true
+                };
+
+                // Logic: Diplomats (NF) & Explorers (SP) -> SNS/Creative (Heross)
+                //        Analysts (NT) & Sentinels (SJ) -> Business/Startup (Startup School)
+                if (t.group === "Diplomats" || t.group === "Explorers") {
+                    return [
+                        {
+                            label: "SNS収益化",
+                            why: "あなたの感性と発信力を資産に変える「Heross」",
+                            ctaText: "無料動画を見る",
+                            href: "https://heross.example.com",
+                            isAd: true
+                        },
+                        {
+                            label: "クリエイティブ",
+                            why: "AI×表現力で「個」の時代を勝ち抜く",
+                            ctaText: "講座を探す",
+                            href: "https://example.com/creative",
+                            isAd: true
+                        },
+                        commonCard
+                    ];
+                } else {
+                    return [
+                        {
+                            label: "起業・独立",
+                            why: "組織に依存しない収益源を作る「Startup School」",
+                            ctaText: "カリキュラムを見る",
+                            href: "https://startup.example.com",
+                            isAd: true
+                        },
+                        {
+                            label: "ハイクラス転職",
+                            why: "AI時代に評価される専門性を高く売る",
+                            ctaText: "求人を見る",
+                            href: "https://example.com/career",
+                            isAd: true
+                        },
+                        commonCard
+                    ];
                 }
-            ]
+            })()
         },
         seo: {
             title: `${t.code} (${t.name}) のAI時代生存戦略 | A.I.R.S.`,

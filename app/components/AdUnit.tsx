@@ -52,7 +52,7 @@ export default function AdUnit({ slotId, format = 'auto', className = '' }: AdUn
                 ref={insRef}
                 className="adsbygoogle"
                 style={{ display: 'block' }}
-                data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" // Replace with real ID or use Context
+                data-ad-client="ca-pub-8206190214868370"
                 data-ad-slot={slotId}
                 data-ad-format={format}
                 data-full-width-responsive="true"

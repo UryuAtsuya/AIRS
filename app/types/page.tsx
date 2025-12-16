@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Header from '../components/Header';
 import Footer from '../components/Footer';
 import TypeCard from '../components/TypeCard';
 import { airsTypes, AirsType } from './airs';
@@ -23,7 +22,6 @@ export default function TypesPage() {
 
     return (
         <div className="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-blue-100 selection:text-blue-900">
-            <Header />
 
             <main className="flex-grow max-w-7xl mx-auto px-6 py-12 w-full animate-fade-in">
 
@@ -52,8 +50,8 @@ export default function TypesPage() {
                                 key={group}
                                 onClick={() => setFilterGroup(group)}
                                 className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap ${filterGroup === group
-                                        ? 'bg-slate-900 text-white shadow-lg shadow-slate-200'
-                                        : 'bg-white text-slate-500 hover:bg-slate-100 border border-slate-200'
+                                    ? 'bg-slate-900 text-white shadow-lg shadow-slate-200'
+                                    : 'bg-white text-slate-500 hover:bg-slate-100 border border-slate-200'
                                     }`}
                             >
                                 {group}

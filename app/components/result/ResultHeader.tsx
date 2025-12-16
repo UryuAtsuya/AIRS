@@ -23,6 +23,26 @@ export default function ResultHeader({ persona, onRetake, showRetakeButton = fal
         return `/characters/banners/${code}.jpg`;
     };
 
+    const handleShare = async () => {
+        const shareData = {
+            title: `AI時代の最適キャリア診断: ${persona.code}`,
+            text: `私の診断結果は... ${persona.nameJa} (${persona.catchphrase}) でした！\n生存確率は${survivalRate}%！\n#AIRS #キャリア診断`,
+            url: typeof window !== 'undefined' ? window.location.href : '',
+        };
+
+        if (navigator.share) {
+            try {
+                await navigator.share(shareData);
+            } catch (err) {
+                console.log('Share canceled');
+            }
+        } else {
+            // Fallback: Twitter Intent
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareData.text)}&url=${encodeURIComponent(shareData.url)}`;
+            window.open(twitterUrl, '_blank');
+        }
+    };
+
     return (
         <div className="relative w-full overflow-hidden bg-slate-900 text-white">
             {/* 1. Background Image Layer */}
@@ -87,7 +107,10 @@ export default function ResultHeader({ persona, onRetake, showRetakeButton = fal
                                 再診断
                             </button>
                         )}
-                        <button className="px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/30 text-white font-bold hover:bg-white/20 transition-all flex items-center gap-2">
+                        <button
+                            onClick={handleShare}
+                            className="px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/30 text-white font-bold hover:bg-white/20 transition-all flex items-center gap-2"
+                        >
                             <Share2 size={18} />
                             結果をシェア
                         </button>
