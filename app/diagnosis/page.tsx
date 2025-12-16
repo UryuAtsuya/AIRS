@@ -118,17 +118,7 @@ export default function DiagnosisPage() {
 
     return (
         <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 flex flex-col">
-            {/* Navbar */}
-            <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-4">
-                <div className="max-w-7xl mx-auto flex justify-between items-center">
-                    <Link href="/" className="flex items-center gap-2 cursor-pointer">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white">
-                            <Sparkles size={18} fill="white" />
-                        </div>
-                        <span className="font-bold text-xl tracking-tight text-slate-800">A.I.R.S.</span>
-                    </Link>
-                </div>
-            </header>
+
 
             <main className="flex-grow flex flex-col items-center justify-start p-6 max-w-4xl mx-auto w-full">
 
