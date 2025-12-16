@@ -145,7 +145,7 @@ export default function DiagnosisPage() {
                         <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6 text-blue-600">
                             <BrainCircuit size={32} />
                         </div>
-                        <h1 className="text-3xl font-bold text-slate-900 mb-4">キャリア診断シーケンス</h1>
+                        <h1 className="text-3xl font-bold text-slate-900 mb-4">AI時代のキャリア生存戦略診断</h1>
                         <p className="text-slate-500 mb-8 leading-relaxed">
                             A.I.R.S.は {questions.length} の戦略的質問を通じて、あなたのAI時代におけるキャリア適性を分析します。<br />
                             深く考えすぎず、直感的に回答してください。
@@ -159,7 +159,7 @@ export default function DiagnosisPage() {
                             disabled={questions.length === 0}
                             className="w-full py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            スキャン開始
+                            診断する
                             <ArrowRight size={18} />
                         </button>
                     </div>
