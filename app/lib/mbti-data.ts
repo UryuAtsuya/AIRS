@@ -6,33 +6,78 @@ export type Question = {
 };
 
 export const questions: Question[] = [
-    // R Axis (Logic vs Vibe) -> T vs F
-    { id: "r1", text: "AIの回答を採用する時は、必ずソース（情報源）を確認して事実確認を行う。", axis: "R", direction: "left" },
-    { id: "r2", text: "画像生成AIのプロンプトは、理論的に組むより感覚的に試行錯誤する方が楽しい。", axis: "R", direction: "right" },
-    { id: "r3", text: "感情的な悩み相談よりも、データの分析やコード生成にAIを使いたい。", axis: "R", direction: "left" },
-    { id: "r4", text: "AIが提案したアイデアでも、自分の直感に合わなければ採用しない。", axis: "R", direction: "right" },
-    { id: "r5", text: "AIの仕組み（アルゴリズム）まで理解していないと気が済まない。", axis: "R", direction: "left" },
+    // --- 1-24: Basic MBTI Traits ---
+    // 1. E/I -> F Axis (Right=E)
+    { id: "q1", text: "定期的に新しい友人を作っている。", axis: "F", direction: "right" },
+    // 2. N/S -> I Axis (Left=N)
+    { id: "q2", text: "単純明快なアイデアよりも、複雑で斬新なアイデアにワクワクする。", axis: "I", direction: "left" },
+    // 3. T/F -> R Axis (Right=F)
+    { id: "q3", text: "事実に基づいた議論よりも、感情的に響くものに説得力を感じる。", axis: "R", direction: "right" },
+    // 4. J/P -> S Axis (Left=J)
+    { id: "q4", text: "自分の生活と仕事の空間は、清潔で整理整頓されている。", axis: "S", direction: "left" },
 
-    // I Axis (Zero/Creation vs Edit/Efficiency) -> N vs S
-    { id: "i1", text: "既存の文章の要約や校正（リライト）にAIを使うことが多い。", axis: "I", direction: "right" },
-    { id: "i2", text: "まだ世の中にない全く新しいサービスやアイデアをAIとゼロから考えたい。", axis: "I", direction: "left" },
-    { id: "i3", text: "AIには「効率化」よりも「創造性の拡張」を求めている。", axis: "I", direction: "left" },
-    { id: "i4", text: "ルーチンワークや事務作業をAIに自動化させることに喜びを感じる。", axis: "I", direction: "right" },
-    { id: "i5", text: "自分では思いつかないような突飛な画像を生成して楽しんでいる。", axis: "I", direction: "left" },
+    // 5. E/I -> F Axis (Left=I)
+    { id: "q5", text: "人脈を広げたり、見知らぬ人に自分を売り込んだりするのは大変だと感じる。", axis: "F", direction: "left" },
+    // 6. N/S -> I Axis (Right=S)
+    { id: "q6", text: "創作物の様々な解釈についての議論にはあまり興味がない。", axis: "I", direction: "right" },
+    // 7. T/F -> R Axis (Left=T)
+    { id: "q7", text: "行動方針を決定する際、人々の感情よりも事実や効率を優先する。", axis: "R", direction: "left" },
+    // 8. J/P -> S Axis (Right=P)
+    { id: "q8", text: "まったく予定を立てずに、その日の成り行きに任せて過ごすことがよくある。", axis: "S", direction: "right" },
 
-    // F Axis (Digital vs Real) -> I vs E
-    { id: "f1", text: "リアルな会議よりも、SlackやDiscord上のテキストコミュニケーションの方が楽だ。", axis: "F", direction: "left" },
-    { id: "f2", text: "休日はデジタルデバイスから離れて、自然の中で過ごしたい。", axis: "F", direction: "right" },
-    { id: "f3", text: "メタバースやVR空間で仕事が完結する未来に憧れる。", axis: "F", direction: "left" },
-    { id: "f4", text: "Zoomやチャットよりも、実際に会って話した方が信頼関係は築けると思う。", axis: "F", direction: "right" },
-    { id: "f5", text: "AIキャラクターとの会話に、人間との会話以上の心地よさを感じることがある。", axis: "F", direction: "left" },
+    // 9. E/I -> F Axis (Right=E)
+    { id: "q9", text: "チームでの活動に参加するのが好きだ。", axis: "F", direction: "right" },
+    // 10. N/S -> I Axis (Left=N)
+    { id: "q10", text: "新しい、まだ試されていないアプローチを試すのが好きだ。", axis: "I", direction: "left" },
+    // 11. T/F -> R Axis (Right=F)
+    { id: "q11", text: "正直であることよりも、相手への配慮を優先する。", axis: "R", direction: "right" },
+    // 12. J/P -> S Axis (Right=P)
+    { id: "q12", text: "仕事や勉強のスケジュールを一貫して維持するのは難しいと感じる。", axis: "S", direction: "right" },
 
-    // S Axis (Order/Merge vs Chaos/Anti) -> J vs P
-    { id: "s1", "text": "AIの利用ルールやガイドラインは、厳格に守られるべきだと思う。", axis: "S", direction: "left" },
-    { id: "s2", "text": "「脱獄（ジェイルブレイク）」のような、AIの制限を突破するハックに興味がある。", axis: "S", direction: "right" },
-    { id: "s3", "text": "みんなが使っている定番のプロンプトや型（テンプレート）を使うのが安心だ。", axis: "S", direction: "left" },
-    { id: "s4", "text": "AIを使って、既存の業界や常識をひっくり返したいという野望がある。", axis: "S", direction: "right" },
-    { id: "s5", "text": "AIにも倫理観や道徳（モラル）は絶対に必要だと思う。", axis: "S", direction: "left" },
+    // 13. E/I -> F Axis (Left=I)
+    { id: "q13", text: "社交の場では、通常、相手から自己紹介されるのを待つ。", axis: "F", direction: "left" },
+    // 14. N/S -> I Axis (Left=N)
+    { id: "q14", text: "未来の世界がどうなるかという理論を議論するのが好きだ。", axis: "I", direction: "left" },
+    // 15. T/F -> R Axis (Left=T)
+    { id: "q15", text: "意見が対立した際、相手の感情を守るよりも自分の主張を証明したい。", axis: "R", direction: "left" },
+    // 16. J/P -> S Axis (Left=J)
+    { id: "q16", text: "毎日「やることリスト」を作るのが好きだ。", axis: "S", direction: "left" },
+
+    // 17. E/I -> F Axis (Right=E)
+    { id: "q17", text: "一人でいるよりも、誰かと一緒にいるほうが好きだ。", axis: "F", direction: "right" },
+    // 18. N/S -> I Axis (Right=S)
+    { id: "q18", text: "抽象的な哲学的な問いを考えるのは時間の無駄だと思う。", axis: "I", direction: "right" },
+    // 19. T/F -> R Axis (Right=F)
+    { id: "q19", text: "決断を下す際、何が論理的かよりも、人がどう感じるかに重点を置く。", axis: "R", direction: "right" },
+    // 20. J/P -> S Axis (Left=J)
+    { id: "q20", text: "計画が中断された場合、できるだけ早く軌道修正することを優先する。", axis: "S", direction: "left" },
+
+    // 21. E/I -> F Axis (Right=E)
+    { id: "q21", text: "初対面の人とも簡単に打ち解けることができる。", axis: "F", direction: "right" },
+    // 22. N/S -> I Axis (Left=N)
+    { id: "q22", text: "具体的な手順に従うよりも、自分で解決策を考えるタスクを好む。", axis: "I", direction: "left" },
+    // 23. T/F -> R Axis (Left=T)
+    { id: "q23", text: "感情的な印象よりも、客観的なデータに基づいて選択を行う。", axis: "R", direction: "left" },
+    // 24. J/P -> S Axis (Right=P)
+    { id: "q24", text: "物事をギリギリまで後回しにしてしまうことがよくある。", axis: "S", direction: "right" },
+
+    // --- 25-32: AI Era Values ---
+    // 25. AI Art -> Digital (F Axis: Left)
+    { id: "q25", text: "AIが作った文章やアートでも、感動できれば人間が作ったものと同等の価値があると思う。", axis: "F", direction: "left" },
+    // 26. Efficiency > Skill -> Edit/S (I Axis: Right)
+    { id: "q26", text: "自分の仕事のやり方がAIによって効率化されるなら、長年培ったスキルを捨てることに抵抗はない。", axis: "I", direction: "right" },
+    // 27. Physical > AI Tool -> Real (F Axis: Right)
+    { id: "q27", text: "便利なAIツールを使いこなすことよりも、自分の手や体を使って何かを完成させることに喜びを感じる。", axis: "F", direction: "right" },
+    // 28. Human Poison -> Anti/P (S Axis: Right)
+    { id: "q28", text: "AIには出せない「人間らしい毒気」や「不合理なこだわり」こそが、これからの差別化になると思う。", axis: "S", direction: "right" },
+    // 29. Solo Biz -> Zero/N (I Axis: Left)
+    { id: "q29", text: "指示を待つよりも、AIを使って自分一人で新しいビジネスやプロジェクトを立ち上げることに興味がある。", axis: "I", direction: "left" },
+    // 30. Vibe > Logic -> Vibe/F (R Axis: Right)
+    { id: "q30", text: "AIが導き出した「正論（最適解）」よりも、現場の熱量や人間関係の空気を優先して判断したい。", axis: "R", direction: "right" },
+    // 31. Human Mgmt Immutable -> Merge/J (S Axis: Left)
+    { id: "q31", text: "どれだけAIが進化しても、最終的な責任を取るのは人間であり、管理職の役割は不変だと思う。", axis: "S", direction: "left" },
+    // 32. Exploit Risk -> Logic/T (R Axis: Left)
+    { id: "q32", text: "未知のAI技術が登場した際、リスクを調べる前にまず触って、どう悪用（活用）できるか考える。", axis: "R", direction: "left" },
 ];
 
 export const typeDetails: Record<string, { strengths: string[]; weaknesses: string[] }> = {

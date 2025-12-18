@@ -26,8 +26,12 @@ export default function ResultView({ result, onRetake }: ResultViewProps) {
         return <div className="p-10 text-center text-red-500 font-bold">Error: Unknown Type</div>;
     }
 
-    // Helper to calc 0-100 percentage from -10 to 10 score
-    const calcPercent = (score: number) => Math.min(100, Math.max(0, ((score + 10) / 20) * 100));
+    // Helper to calc 0-100 percentage from score (Range: -8 to +8 for 32 questions / 4 axes = 8 questions each)
+    const calcPercent = (score: number) => {
+        // -8 -> 0%, +8 -> 100%
+        // (score + 8) / 16 * 100
+        return Math.min(100, Math.max(0, ((score + 8) / 16) * 100));
+    };
 
     const scores = {
         reasoning: calcPercent(result.scores["R"]),
@@ -42,7 +46,7 @@ export default function ResultView({ result, onRetake }: ResultViewProps) {
             {/* 1. Header Area with Hero & Survival Rate */}
             <ResultHeader
                 persona={persona}
-                survivalRate={staticData.survivalRate}
+                survivalRate={persona.survivalRate ?? staticData.survivalRate}
                 onRetake={onRetake}
                 showRetakeButton={true}
             />

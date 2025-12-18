@@ -178,14 +178,16 @@ export default function DiagnosisPage() {
 
                         {/* Questions List */}
                         <div className="space-y-6 mb-12">
+
+
                             {questions
-                                .slice(currentQIndex, currentQIndex + 5)
+                                .slice(currentQIndex, currentQIndex + 8)
                                 .map((q, idx) => {
                                     const answer = answers.find(a => a.questionId === q.id)?.value ?? null;
 
                                     return (
-                                        <div key={q.id} className="bg-white p-8 md:p-10 rounded-3xl shadow-md border-b-4 border-slate-100 transition-transform hover:scale-[1.01]">
-                                            <h2 className="text-xl md:text-2xl font-bold text-slate-700 mb-10 text-center leading-relaxed">
+                                        <div key={q.id} className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100 hover:border-purple-100 transition-all">
+                                            <h2 className="text-lg md:text-xl font-bold text-slate-800 mb-6 leading-relaxed">
                                                 {q.text}
                                             </h2>
 
@@ -214,7 +216,7 @@ export default function DiagnosisPage() {
                             <button
                                 onClick={() => {
                                     // Check if all displayed questions are answered
-                                    const currentQuestions = questions.slice(currentQIndex, currentQIndex + 5);
+                                    const currentQuestions = questions.slice(currentQIndex, currentQIndex + 8);
                                     const allAnswered = currentQuestions.every(q => answers.some(a => a.questionId === q.id));
 
                                     if (!allAnswered) {
@@ -222,7 +224,7 @@ export default function DiagnosisPage() {
                                         return;
                                     }
 
-                                    const nextIndex = currentQIndex + 5;
+                                    const nextIndex = currentQIndex + 8;
                                     if (nextIndex < questions.length) {
                                         setCurrentQIndex(nextIndex);
                                         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -233,7 +235,7 @@ export default function DiagnosisPage() {
                                 className="group relative px-10 py-4 bg-gradient-to-r from-slate-800 to-slate-900 text-white font-bold rounded-full shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 <span className="flex items-center gap-2 text-lg">
-                                    {(currentQIndex + 5) >= questions.length ? '診断結果を見る' : '次へ進む'}
+                                    {(currentQIndex + 8) >= questions.length ? '診断結果を見る' : '次へ進む'}
                                     <ArrowRight className="group-hover:translate-x-1 transition-transform" />
                                 </span>
                             </button>
