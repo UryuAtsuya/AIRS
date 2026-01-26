@@ -10,7 +10,8 @@ import {
   Network,
   Users,
   Lock,
-  Search
+  Search,
+  BookOpen
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -88,6 +89,38 @@ export default function LandingPage() {
             <p className="text-sm text-slate-500 leading-relaxed">
               あなたのタイプが陥りやすいキャリアの罠や、AIに代替されるリスクを事前に把握できます。
             </p>
+          </div>
+        </div>
+
+        {/* Latest Articles */}
+        <div className="mt-24 text-left">
+          <div className="flex items-center gap-2 mb-8">
+            <BookOpen className="text-slate-400" size={20} />
+            <h2 className="text-xl font-bold text-slate-900">最新のキャリア戦略コラム</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Link href="/articles/career-strategy-2026" className="group block h-full">
+              <div className="h-full p-8 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group-hover:border-blue-200 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-50 to-transparent rounded-bl-full opacity-50"></div>
+                <div className="relative">
+                  <div className="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-wider text-blue-600 uppercase bg-blue-50 rounded-full border border-blue-100">
+                    Must Read
+                  </div>
+                  <h3 className="font-bold text-xl text-slate-900 mb-3 group-hover:text-blue-600 transition-colors leading-snug">
+                    2026年の分かれ道：<br />AIに「代替される人」と「価値が暴騰する人」
+                  </h3>
+                  <p className="text-sm text-slate-500 leading-relaxed mb-6 line-clamp-3">
+                    「今の仕事を続けていて、10年後も大丈夫だろうか？」<br />
+                    生成AIがインフラ化した今、キャリアのルールは根本から変わりました。市場価値を最大化する「新・キャリア戦略」を徹底解説。
+                  </p>
+                  <div className="flex items-center text-blue-600 text-sm font-bold group-hover:underline decoration-blue-200 underline-offset-4">
+                    記事を読む
+                    <ArrowRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
       </main>
