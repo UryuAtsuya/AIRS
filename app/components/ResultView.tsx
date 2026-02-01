@@ -4,6 +4,7 @@ import { getPersona } from '../data/personas';
 import ResultHeader from './result/ResultHeader';
 import TraitBars from './result/TraitBars';
 import ResultContent from './result/ResultContent';
+import MeikoCareerAffiliate from './MeikoCareerAffiliate';
 
 type DiagnosisResult = {
     type: string; // e.g. "ENTP"
@@ -63,6 +64,11 @@ export default function ResultView({ result, onRetake }: ResultViewProps) {
             <ResultContent
                 persona={persona}
             />
+
+            {/* 4. Affiliate Section */}
+            <div className="pb-12 border-t border-slate-100">
+                <MeikoCareerAffiliate />
+            </div>
         </div>
     );
 }

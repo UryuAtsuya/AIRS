@@ -14,6 +14,7 @@ import {
   BookOpen
 } from 'lucide-react';
 import Link from 'next/link';
+import MeikoCareerAffiliate from './components/MeikoCareerAffiliate';
 
 export default function LandingPage() {
   return (
@@ -123,6 +124,9 @@ export default function LandingPage() {
             </Link>
           </div>
         </div>
+
+        {/* Affiliate Section */}
+        <MeikoCareerAffiliate />
       </main>
 
       {/* Footer */}
