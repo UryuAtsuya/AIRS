@@ -1,11 +1,3 @@
-import {
-    Lightbulb,
-    Users,
-    Gavel,
-    Compass,
-    LucideIcon
-} from 'lucide-react';
-
 export type AirsType = {
     id: string; // e.g., "ENTP"
     code: string; // 表示用コード

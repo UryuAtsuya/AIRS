@@ -1,4 +1,5 @@
-import { Terminal, Github, Twitter } from 'lucide-react';
+import Link from 'next/link';
+import { Terminal } from 'lucide-react';
 
 export default function Footer() {
     return (
@@ -13,13 +14,24 @@ export default function Footer() {
                 </div>
 
                 <p className="text-slate-400 text-xs mb-8 max-w-lg mx-auto leading-relaxed">
-                    本サービスはAI時代におけるキャリア適性を独自のアルゴリズムで分析するジョーク/パロディサイトです。<br />
-                    診断結果があなたの人生を保証するものではありません。
+                    本サービスは、AI時代におけるキャリアの自己分析と情報収集を支援する診断サービスです。<br />
+                    診断結果はキャリア検討の参考情報としてご活用ください。
                 </p>
 
-                <div className="flex justify-center gap-6 text-slate-300 mb-8">
-                    <a href="#" className="hover:text-blue-500 transition-colors"><Twitter size={20} /></a>
-                    <a href="#" className="hover:text-slate-800 transition-colors"><Github size={20} /></a>
+                <div className="mb-8">
+                    <Link
+                        href="/contact"
+                        className="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-3 text-sm font-bold text-white transition-all hover:bg-slate-800 hover:shadow-lg"
+                    >
+                        お問い合わせ
+                    </Link>
+                </div>
+
+                <div className="mb-8 flex flex-wrap items-center justify-center gap-5 text-xs font-bold text-slate-400">
+                    <Link href="/about" className="hover:text-blue-600 transition-colors">運営方針</Link>
+                    <Link href="/privacy" className="hover:text-blue-600 transition-colors">プライバシーポリシー</Link>
+                    <Link href="/contact" className="hover:text-blue-600 transition-colors">お問い合わせ</Link>
+                    <Link href="/articles/career-strategy-2026" className="hover:text-blue-600 transition-colors">記事</Link>
                 </div>
 
                 <div className="text-[10px] text-slate-300 tracking-wider">

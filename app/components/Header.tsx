@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Sparkles, Terminal } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 export default function Header() {
     return (
@@ -26,6 +26,12 @@ export default function Header() {
                     </Link>
                     <Link href="/about" className="text-sm font-bold text-slate-500 hover:text-blue-600 transition-colors">
                         MBTI.AIとは
+                    </Link>
+                    <Link href="/privacy" className="text-sm font-bold text-slate-500 hover:text-blue-600 transition-colors">
+                        プライバシー
+                    </Link>
+                    <Link href="/contact" className="text-sm font-bold text-slate-500 hover:text-blue-600 transition-colors">
+                        お問い合わせ
                     </Link>
                 </nav>
 

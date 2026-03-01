@@ -1,21 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-    Sparkles,
     ArrowRight,
-    Terminal,
     BrainCircuit,
-    CheckCircle2,
     AlertCircle,
-    ThumbsUp,
-    ThumbsDown,
     Briefcase
 } from 'lucide-react';
-// --- Imports ---
-import Link from 'next/link';
-
 import AdUnit from '../components/AdUnit';
+import Footer from '../components/Footer';
 import ResultView from '../components/ResultView';
 import QuestionSelect from '../components/QuestionSelect';
 import { questions as staticQuestions, typeDetails } from '../lib/mbti-data';
@@ -182,7 +175,7 @@ export default function DiagnosisPage() {
 
                             {questions
                                 .slice(currentQIndex, currentQIndex + 8)
-                                .map((q, idx) => {
+                                .map((q) => {
                                     const answer = answers.find(a => a.questionId === q.id)?.value ?? null;
 
                                     return (
@@ -292,14 +285,7 @@ export default function DiagnosisPage() {
 
             </main>
 
-            {/* Footer */}
-            <footer className="text-center text-slate-400 text-xs py-10 border-t border-slate-200 mt-auto">
-                <div className="flex justify-center items-center gap-2 mb-2">
-                    <Terminal size={14} />
-                    <span>Powered by A.I.R.S. System</span>
-                </div>
-                © 2025 A.I.R.S. Survival Diagnostic.
-            </footer>
+            <Footer />
         </div>
     );
 }

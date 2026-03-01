@@ -33,7 +33,7 @@ export default function ResultHeader({ persona, onRetake, showRetakeButton = fal
         if (navigator.share) {
             try {
                 await navigator.share(shareData);
-            } catch (err) {
+            } catch {
                 console.log('Share canceled');
             }
         } else {

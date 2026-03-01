@@ -6,9 +6,7 @@ import {
     ChevronDown,
     ChevronUp,
     AlertTriangle,
-    CheckCircle2,
-    Briefcase,
-    TrendingUp
+    CheckCircle2
 } from 'lucide-react';
 import NextActions from './NextActions';
 

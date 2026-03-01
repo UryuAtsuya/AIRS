@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { Persona } from '../../data/personas';
 import { ExternalLink } from 'lucide-react';
 
@@ -9,6 +10,8 @@ type NextActionsProps = {
 };
 
 export default function NextActions({ actions }: NextActionsProps) {
+    const hasDisclosure = Boolean(actions.disclosure);
+
     return (
         <section className="py-12 bg-slate-50 border-t border-slate-200">
             <div className="max-w-6xl mx-auto px-6">
@@ -17,26 +20,25 @@ export default function NextActions({ actions }: NextActionsProps) {
                 <div className="flex justify-between items-end mb-8">
                     <div>
                         <h3 className="text-2xl font-bold text-slate-900 tracking-tight">
-                            Recommended for You
+                            Next Actions
                         </h3>
                         <p className="text-sm text-slate-500 mt-1">
-                            あなたのタイプに推奨されるキャリア戦略レポート
+                            診断結果を次の行動につなげるための導線
                         </p>
                     </div>
-                    <span className="text-[10px] text-slate-400 font-medium px-2 py-1 bg-white border border-slate-100 rounded">
-                        {actions.disclosure}
-                    </span>
+                    {hasDisclosure && (
+                        <span className="text-[10px] text-slate-400 font-medium px-2 py-1 bg-white border border-slate-100 rounded">
+                            {actions.disclosure}
+                        </span>
+                    )}
                 </div>
 
                 <div className="space-y-4">
-                    {actions.cards.map((card, idx) => (
-                        <a
-                            key={idx}
-                            href={card.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group flex flex-col md:flex-row bg-white rounded-xl overflow-hidden border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300"
-                        >
+                    {actions.cards.map((card, idx) => {
+                        const isInternal = card.href.startsWith('/');
+                        const className = "group flex flex-col md:flex-row bg-white rounded-xl overflow-hidden border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300";
+                        const cardBody = (
+                            <>
                             {/* Thumbnail Area (Mock) */}
                             <div className="md:w-48 h-32 md:h-auto bg-slate-100 relative shrink-0 overflow-hidden">
                                 <div className="absolute inset-0 bg-gradient-to-br from-slate-200 to-slate-300 group-hover:scale-105 transition-transform duration-500"></div>
@@ -55,15 +57,36 @@ export default function NextActions({ actions }: NextActionsProps) {
                                     {card.why}
                                 </h4>
                                 <div className="flex items-center gap-3 text-xs text-slate-500 mt-auto pt-2">
-                                    <span className="font-semibold text-slate-400">Career Compass</span>
+                                    <span className="font-semibold text-slate-400">MBTI.AI</span>
                                     <span className="w-1 h-1 rounded-full bg-slate-300"></span>
                                     <span className="flex items-center gap-1 text-blue-600 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                                        詳しく見る <ExternalLink size={10} />
+                                        {card.ctaText} <ExternalLink size={10} />
                                     </span>
                                 </div>
                             </div>
-                        </a>
-                    ))}
+                            </>
+                        );
+
+                        if (isInternal) {
+                            return (
+                                <Link key={idx} href={card.href} className={className}>
+                                    {cardBody}
+                                </Link>
+                            );
+                        }
+
+                        return (
+                            <a
+                                key={idx}
+                                href={card.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={className}
+                            >
+                                {cardBody}
+                            </a>
+                        );
+                    })}
                 </div>
             </div>
         </section>

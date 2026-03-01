@@ -1,13 +1,10 @@
 import Link from 'next/link';
 import { Sparkles, BrainCircuit, ShieldAlert, Rocket, ArrowRight } from 'lucide-react';
-import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export default function AboutPage() {
     return (
         <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
-            <Header />
-
             <main className="flex-grow w-full max-w-4xl mx-auto px-6 py-12 animate-fade-in">
 
                 {/* Hero Section */}
@@ -68,6 +65,33 @@ export default function AboutPage() {
                             ※本サービスはMBTIの理論を参考にしていますが、公式のMBTI®診断とは異なります。エンターテインメントおよびキャリア考察の一助としてご利用ください。
                         </div>
                     </div>
+                </div>
+
+                <div className="grid gap-8 md:grid-cols-2 mb-20">
+                    <section className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
+                        <h2 className="text-2xl font-bold mb-4">運営方針</h2>
+                        <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                            MBTI.AIは、AI時代のキャリア選択に役立つ自己分析と情報整理を支援することを目的に運営しています。
+                            診断結果や記事は、進路検討や転職活動の参考情報として提供しています。
+                        </p>
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                            特定の進路や企業への応募を保証するものではなく、最終的な判断はご自身で行ってください。
+                        </p>
+                    </section>
+
+                    <section className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
+                        <h2 className="text-2xl font-bold mb-4">お問い合わせ</h2>
+                        <p className="text-sm text-slate-600 leading-relaxed mb-5">
+                            サービスに関するご質問、ご意見、修正依頼はお問い合わせフォームから受け付けています。
+                        </p>
+                        <Link
+                            href="/contact"
+                            className="inline-flex items-center gap-2 px-5 py-3 bg-slate-900 text-white font-bold rounded-full hover:bg-slate-800 transition-all"
+                        >
+                            フォームを開く
+                            <ArrowRight size={16} />
+                        </Link>
+                    </section>
                 </div>
 
                 {/* CTA */}

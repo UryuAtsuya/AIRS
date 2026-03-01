@@ -4,17 +4,14 @@ import React from 'react';
 import {
   Sparkles,
   ArrowRight,
-  Terminal,
   ShieldAlert,
   BrainCircuit,
   Network,
-  Users,
-  Lock,
   Search,
   BookOpen
 } from 'lucide-react';
 import Link from 'next/link';
-import MeikoCareerAffiliate from './components/MeikoCareerAffiliate';
+import Footer from './components/Footer';
 
 export default function LandingPage() {
   return (
@@ -124,19 +121,9 @@ export default function LandingPage() {
             </Link>
           </div>
         </div>
-
-        {/* Affiliate Section */}
-        <MeikoCareerAffiliate />
       </main>
 
-      {/* Footer */}
-      <footer className="text-center text-slate-400 text-xs py-10 border-t border-slate-200">
-        <div className="flex justify-center items-center gap-2 mb-2">
-          <Terminal size={14} />
-          <span>Powered by A.I.R.S. System</span>
-        </div>
-        © 2025 A.I.R.S. Survival Diagnostic.
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import MeikoCareerAffiliate from '../../components/MeikoCareerAffiliate';
 import { ArrowRight, BrainCircuit, Users, Target, Shield, Zap } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -338,7 +337,6 @@ export default function CareerStrategy2026Page() {
                     </p>
                 </section>
 
-                <MeikoCareerAffiliate />
             </div>
         </article>
     );

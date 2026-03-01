@@ -11,6 +11,7 @@ type AdUnitProps = {
 export default function AdUnit({ slotId, format = 'auto', className = '' }: AdUnitProps) {
     const adInit = useRef(false);
     const insRef = useRef<HTMLModElement>(null);
+    const adsEnabled = process.env.NEXT_PUBLIC_ENABLE_ADS === 'true';
 
     useEffect(() => {
         // Skip in development
@@ -25,7 +26,7 @@ export default function AdUnit({ slotId, format = 'auto', className = '' }: AdUn
         }
 
         try {
-            // @ts-ignore
+            // @ts-expect-error adsbygoogle is injected by the AdSense script
             (window.adsbygoogle = window.adsbygoogle || []).push({});
             adInit.current = true;
         } catch (err) {
@@ -44,6 +45,10 @@ export default function AdUnit({ slotId, format = 'auto', className = '' }: AdUn
                 AdSpace (Slot: {slotId})
             </div>
         )
+    }
+
+    if (!adsEnabled) {
+        return null;
     }
 
     return (

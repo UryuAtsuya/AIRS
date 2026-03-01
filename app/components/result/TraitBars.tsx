@@ -23,16 +23,6 @@ const getGroupColor = (group: string) => {
     }
 };
 
-const getSecondaryColor = (group: string) => {
-    switch (group) {
-        case "Analysts": return "bg-purple-400";
-        case "Diplomats": return "bg-green-400";
-        case "Sentinels": return "bg-blue-400";
-        case "Explorers": return "bg-yellow-400";
-        default: return "bg-slate-400";
-    }
-};
-
 const TraitRow = ({
     leftLabel,
     rightLabel,

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Footer from '../components/Footer';
 import TypeCard from '../components/TypeCard';
-import { airsTypes, AirsType } from './airs';
+import { airsTypes } from './airs';
 import { Sparkles, Search, Filter } from 'lucide-react';
 
 export default function TypesPage() {
@@ -74,8 +74,8 @@ export default function TypesPage() {
 
                 {/* Types Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pb-20">
-                    {filteredTypes.map((type) => (
-                        <div key={type.id} className="animate-slide-up" style={{ animationDelay: `${Math.random() * 0.2}s` }}>
+                    {filteredTypes.map((type, index) => (
+                        <div key={type.id} className="animate-slide-up" style={{ animationDelay: `${(index % 4) * 0.05}s` }}>
                             <TypeCard type={type} />
                         </div>
                     ))}

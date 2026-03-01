@@ -16,7 +16,7 @@ export type Persona = {
     risks: { title: string; fatalFlaw: string; scenario: string; avoid: string[] };
     nextActions: {
         title: string;
-        disclosure: string;
+        disclosure?: string;
         cards: { label: string; why: string; ctaText: string; href: string; isAd: boolean }[];
     };
     seo: { title: string; description: string };
@@ -115,49 +115,49 @@ const mapToPersona = (t: AirsType): Persona => {
         },
         nextActions: {
             title: "次のアクション",
-            disclosure: "※本ページはプロモーションが含まれています",
+            disclosure: undefined,
             cards: (() => {
                 const commonCard = {
                     label: "自己分析",
-                    why: "より深く自分を知るための精密診断",
-                    ctaText: "診断を受ける",
-                    href: "https://example.com/deep",
-                    isAd: true
+                    why: "診断の考え方と活用方法を確認する",
+                    ctaText: "サービス概要を見る",
+                    href: "/about",
+                    isAd: false
                 };
 
                 if (t.group === "Diplomats" || t.group === "Explorers") {
                     return [
                         {
-                            label: "SNS収益化",
-                            why: "あなたの感性と発信力を資産に変える「Heross」",
-                            ctaText: "無料動画を見る",
-                            href: "https://heross.example.com",
-                            isAd: true
+                            label: "記事を読む",
+                            why: "AI時代のキャリア戦略を長文記事で深掘りする",
+                            ctaText: "記事を読む",
+                            href: "/articles/career-strategy-2026",
+                            isAd: false
                         },
                         {
-                            label: "クリエイティブ",
-                            why: "AI×表現力で「個」の時代を勝ち抜く",
-                            ctaText: "講座を探す",
-                            href: "https://example.com/creative",
-                            isAd: true
+                            label: "タイプ一覧",
+                            why: "他タイプとの違いを比較して視野を広げる",
+                            ctaText: "一覧を見る",
+                            href: "/types",
+                            isAd: false
                         },
                         commonCard
                     ];
                 } else {
                     return [
                         {
-                            label: "起業・独立",
-                            why: "組織に依存しない収益源を作る「Startup School」",
-                            ctaText: "カリキュラムを見る",
-                            href: "https://startup.example.com",
-                            isAd: true
+                            label: "記事を読む",
+                            why: "市場価値を上げるための考え方を整理する",
+                            ctaText: "記事を読む",
+                            href: "/articles/career-strategy-2026",
+                            isAd: false
                         },
                         {
-                            label: "ハイクラス転職",
-                            why: "AI時代に評価される専門性を高く売る",
-                            ctaText: "求人を見る",
-                            href: "https://example.com/career",
-                            isAd: true
+                            label: "お問い合わせ",
+                            why: "サービス内容や掲載情報について相談する",
+                            ctaText: "フォームを開く",
+                            href: "/contact",
+                            isAd: false
                         },
                         commonCard
                     ];

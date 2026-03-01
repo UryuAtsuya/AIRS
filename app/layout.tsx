@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ai-career-type.com"),
   title: "MBTI.AI - AI時代の最適キャリア診断",
   description: "AI時代に自分の理解と適職を知らないと、いつの間にかAIに代替されてしまう。今すぐ診断を受けて、あなたの最適なキャリアを見つけよう。",
 };
@@ -26,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
