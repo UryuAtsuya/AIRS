@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next';
 import { airsTypes } from './types/airs';
 
+export const dynamic = 'force-static';
+
 const baseUrl = 'https://ai-career-type.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {
