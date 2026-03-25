@@ -1,17 +1,16 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import {
     ArrowRight,
     BrainCircuit,
     AlertCircle,
     Briefcase
 } from 'lucide-react';
-import AdUnit from '../components/AdUnit';
 import Footer from '../components/Footer';
-import ResultView from '../components/ResultView';
 import QuestionSelect from '../components/QuestionSelect';
-import { questions as staticQuestions, typeDetails } from '../lib/mbti-data';
+import { questions as staticQuestions } from '../lib/mbti-data';
 
 // --- Types ---
 type Question = {
@@ -21,24 +20,13 @@ type Question = {
     direction: string;
 };
 
-type DiagnosisResult = {
-    type: string;
-    scores: { [key: string]: number };
-    detail: string;
-    strengths: string[];
-    weaknesses: string[];
-};
-
 export default function DiagnosisPage() {
-    const [step, setStep] = useState<'intro' | 'quiz' | 'analyzing' | 'result'>('intro');
-    // Initialize directly from static data
+    const router = useRouter();
+    const [step, setStep] = useState<'intro' | 'quiz' | 'analyzing'>('intro');
     const [questions] = useState<Question[]>(staticQuestions as Question[]);
     const [currentQIndex, setCurrentQIndex] = useState(0);
     const [answers, setAnswers] = useState<{ questionId: string, value: number }[]>([]);
-    const [result, setResult] = useState<DiagnosisResult | null>(null);
     const [error, setError] = useState<string | null>(null);
-
-    // No useEffect fetch needed anymore
 
     const handleStart = () => {
         setStep('quiz');
@@ -47,47 +35,33 @@ export default function DiagnosisPage() {
     const finishDiagnosis = async (finalAnswers: typeof answers) => {
         setStep('analyzing');
 
-        // Calculate Logic locally (Client-Side)
         try {
-            // Simulate processing delay for UX
             await new Promise(resolve => setTimeout(resolve, 1500));
 
             const scores: { [key: string]: number } = { "R": 0, "I": 0, "F": 0, "S": 0 };
-
             for (const ans of finalAnswers) {
                 const q = questions.find(item => item.id === ans.questionId);
                 if (q) {
-                    let val = ans.value;
-                    if (q.direction === "left") {
-                        val = -val;
-                    }
+                    const val = q.direction === "left" ? -ans.value : ans.value;
                     scores[q.axis] += val;
                 }
             }
 
-            // Scoring Logic
-            let mbti = "";
-            // F Axis: Real(>0) -> E, Digital(else) -> I
-            mbti += scores["F"] > 0 ? "E" : "I";
-            // I Axis: Edit(>0) -> S, Zero(else) -> N
-            mbti += scores["I"] > 0 ? "S" : "N";
-            // R Axis: Logic(else) -> T, Vibe(>0) -> F (Wait, backend says: if R > 0 (Vibe) -> F, else T)
-            mbti += scores["R"] > 0 ? "F" : "T";
-            // S Axis: Anti(>0) -> P, Merge(else) -> J
-            mbti += scores["S"] > 0 ? "P" : "J";
+            // F Axis: Real(>0) -> E, else -> I
+            // I Axis: Edit(>0) -> S, else -> N
+            // R Axis: Vibe(>0) -> F, else -> T
+            // S Axis: Anti(>0) -> P, else -> J
+            const mbti =
+                (scores["F"] > 0 ? "E" : "I") +
+                (scores["I"] > 0 ? "S" : "N") +
+                (scores["R"] > 0 ? "F" : "T") +
+                (scores["S"] > 0 ? "P" : "J");
 
-            const detail = typeDetails[mbti] || { strengths: [], weaknesses: [] };
+            // sessionStorage にスコアを保存 → /types/[code] で trait bars に使用
+            sessionStorage.setItem('diagnosisScores', JSON.stringify(scores));
+            sessionStorage.setItem('diagnosisType', mbti);
 
-            const finalResult: DiagnosisResult = {
-                type: mbti,
-                scores: scores,
-                detail: "Diagnosis complete",
-                strengths: detail.strengths,
-                weaknesses: detail.weaknesses
-            };
-
-            setResult(finalResult);
-            setStep('result');
+            router.push(`/types/${mbti}`);
 
         } catch (err) {
             console.error(err);
@@ -263,25 +237,6 @@ export default function DiagnosisPage() {
                     </div>
                 )}
 
-                {/* STEP: RESULT */}
-                {step === 'result' && result && (
-                    <div className="w-full">
-                        {/* AdUnit Top (Optional placement, maybe inside ResultView or above) */}
-                        <AdUnit slotId="result-top" className="mb-8 bg-transparent" />
-
-                        <ResultView
-                            result={result}
-                            onRetake={() => {
-                                setStep('intro');
-                                setAnswers([]);
-                                setCurrentQIndex(0);
-                            }}
-                        />
-
-                        {/* AdUnit Bottom */}
-                        <AdUnit slotId="result-bottom" className="mt-8 bg-transparent" />
-                    </div>
-                )}
 
             </main>
 

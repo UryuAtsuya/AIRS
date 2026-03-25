@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Persona } from '../../data/personas';
-import { Share2, RefreshCw } from 'lucide-react';
+import { Share2, RefreshCw, Twitter } from 'lucide-react';
 
 type ResultHeaderProps = {
     persona: Persona;
@@ -23,23 +23,31 @@ export default function ResultHeader({ persona, onRetake, showRetakeButton = fal
         return `/characters/banners_clean/${code}.png`;
     };
 
+    // canonical URL（クエリパラメータを含まない /types/[code] 固定）
+    const canonicalUrl = `https://ai-career-type.com/types/${persona.code}`;
+
+    const shareText = `【AI時代キャリア診断】\n私のタイプは「${persona.catchphrase}」(${persona.code})でした！\n生存率${survivalRate}% #AIRS診断 #AIキャリア`;
+
+    const handleXShare = () => {
+        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(canonicalUrl)}`;
+        window.open(url, '_blank', 'noopener,noreferrer');
+    };
+
     const handleShare = async () => {
         const shareData = {
             title: `AI時代の最適キャリア診断: ${persona.code}`,
-            text: `私の診断結果は... ${persona.nameJa} (${persona.catchphrase}) でした！\n生存確率は${survivalRate}%！\n#AIRS #キャリア診断`,
-            url: typeof window !== 'undefined' ? window.location.href : '',
+            text: shareText,
+            url: canonicalUrl,
         };
 
         if (navigator.share) {
             try {
                 await navigator.share(shareData);
             } catch {
-                console.log('Share canceled');
+                // キャンセル時は何もしない
             }
         } else {
-            // Fallback: Twitter Intent
-            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareData.text)}&url=${encodeURIComponent(shareData.url)}`;
-            window.open(twitterUrl, '_blank');
+            handleXShare();
         }
     };
 
@@ -97,7 +105,7 @@ export default function ResultHeader({ persona, onRetake, showRetakeButton = fal
                     )}
 
                     {/* Action Buttons */}
-                    <div className="flex gap-4 justify-center md:justify-start mt-8">
+                    <div className="flex flex-wrap gap-3 justify-center md:justify-start mt-8">
                         {showRetakeButton && onRetake && (
                             <button
                                 onClick={onRetake}
@@ -107,12 +115,21 @@ export default function ResultHeader({ persona, onRetake, showRetakeButton = fal
                                 再診断
                             </button>
                         )}
+                        {/* X (Twitter) シェアボタン */}
+                        <button
+                            onClick={handleXShare}
+                            className="px-6 py-3 rounded-full bg-black border border-white/20 text-white font-bold hover:bg-neutral-900 transition-all flex items-center gap-2"
+                        >
+                            <Twitter size={18} />
+                            Xでシェア
+                        </button>
+                        {/* Web Share API (その他のSNS) */}
                         <button
                             onClick={handleShare}
                             className="px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/30 text-white font-bold hover:bg-white/20 transition-all flex items-center gap-2"
                         >
                             <Share2 size={18} />
-                            結果をシェア
+                            シェア
                         </button>
                     </div>
                 </div>
