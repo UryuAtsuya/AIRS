@@ -86,7 +86,7 @@ export default function ResultHeader({ persona, onRetake, showRetakeButton = fal
                         &quot;{persona.catchphrase}&quot;
                         <br />
                         <span className="text-sm mt-2 block opacity-60 font-normal">
-                            {persona.nameJa}は独創的かつ戦略的に物事を考える傾向があり... (Sample description placeholder)
+                            {persona.empathyPoint}
                         </span>
                     </p>
 
@@ -99,7 +99,13 @@ export default function ResultHeader({ persona, onRetake, showRetakeButton = fal
                             </div>
                             <div className="h-10 w-px bg-white/20"></div>
                             <div className="text-xs text-white/60 text-left max-w-[12rem]">
-                                あなたのAI社会生存確率は極めて高い水準です。
+                                {survivalRate >= 85
+                                    ? 'AI社会生存確率は極めて高い水準です。'
+                                    : survivalRate >= 70
+                                    ? 'AI社会生存確率は比較的高い水準です。'
+                                    : survivalRate >= 55
+                                    ? 'AI社会生存確率は要注意水準です。'
+                                    : 'AI社会生存確率は生存危機水準です。'}
                             </div>
                         </div>
                     )}
