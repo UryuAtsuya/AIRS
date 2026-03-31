@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import Footer from './components/Footer';
+import MeikoCareerAffiliate from './components/MeikoCareerAffiliate';
 
 export default function LandingPage() {
   return (
@@ -121,6 +122,8 @@ export default function LandingPage() {
             </Link>
           </div>
         </div>
+        {/* Affiliate Section */}
+        <MeikoCareerAffiliate />
       </main>
 
       <Footer />

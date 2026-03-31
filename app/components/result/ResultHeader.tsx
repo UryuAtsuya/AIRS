@@ -79,12 +79,10 @@ export default function ResultHeader({ persona, onRetake, showRetakeButton = fal
 
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight">
                         <span className="block text-2xl md:text-3xl font-bold opacity-80 mb-2">AI時代の{persona.nameJa}:</span>
-                        {persona.code} 進化系
+                        {persona.catchphrase}
                     </h1>
 
                     <p className="text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed font-medium">
-                        &quot;{persona.catchphrase}&quot;
-                        <br />
                         <span className="text-sm mt-2 block opacity-60 font-normal">
                             {persona.empathyPoint}
                         </span>
