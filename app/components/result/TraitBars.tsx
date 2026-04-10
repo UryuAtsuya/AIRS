@@ -44,18 +44,15 @@ const TraitRow = ({
 
     // Calculate width for the bar (0-100% of the half-width)
     let barWidth = 0;
-    let valueDisplay = 50; // default display value
 
     if (isLeft) {
         barWidth = (50 - percentage) * 2;
-        valueDisplay = 100 - percentage; // e.g. 10% -> 90% Left
     } else if (isRight) {
         barWidth = (percentage - 50) * 2;
-        valueDisplay = percentage;
-    } else {
-        barWidth = 0;
-        valueDisplay = 50;
     }
+
+    // valueDisplay: how dominant the winning side is (0-100%)
+    const valueDisplay = barWidth;
 
     // Colors
     const leftColor = isLeft ? getGroupColor(group) : "bg-slate-200";
