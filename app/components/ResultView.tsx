@@ -2,9 +2,10 @@ import React from 'react';
 import { airsTypes, AirsType } from '../types/airs';
 import { getPersona } from '../data/personas';
 import ResultHeader from './result/ResultHeader';
+import ResultDashboardIntro from './result/ResultDashboardIntro';
 import TraitBars from './result/TraitBars';
 import ResultContent from './result/ResultContent';
-import MeikoCareerAffiliate from './MeikoCareerAffiliate';
+import ResultOffers from './result/ResultOffers';
 
 type DiagnosisResult = {
     type: string; // e.g. "ENTP"
@@ -52,7 +53,14 @@ export default function ResultView({ result, onRetake }: ResultViewProps) {
                 showRetakeButton={true}
             />
 
-            {/* 2. Trait Bars Visualization */}
+            {/* 2. Result dashboard summary */}
+            <ResultDashboardIntro
+                persona={persona}
+                type={staticData}
+                staticScores={scores}
+            />
+
+            {/* 3. Trait Bars Visualization */}
             <div className="border-b border-slate-100">
                 <TraitBars
                     scores={scores}
@@ -60,15 +68,13 @@ export default function ResultView({ result, onRetake }: ResultViewProps) {
                 />
             </div>
 
-            {/* 3. Detailed Content (Desc, Strategy, Risk) */}
+            {/* 4. Detailed Content (Desc, Strategy, Risk) */}
             <ResultContent
                 persona={persona}
             />
 
-            {/* 4. Affiliate Section */}
-            <div className="pb-12 border-t border-slate-100">
-                <MeikoCareerAffiliate />
-            </div>
+            {/* 5. Type-aware next offer */}
+            <ResultOffers persona={persona} type={staticData} />
         </div>
     );
 }
