@@ -1,129 +1,305 @@
 'use client';
 
-import React from 'react';
-import {
-  Sparkles,
-  ArrowRight,
-  ShieldAlert,
-  BrainCircuit,
-  Network,
-  Search,
-  BookOpen
-} from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
+import {
+  ArrowRight,
+  BarChart3,
+  BriefcaseBusiness,
+  CheckCircle2,
+  ClipboardList,
+  Compass,
+  FileText,
+  GraduationCap,
+  Lightbulb,
+  MessageCircle,
+  ShieldCheck,
+  Sparkles,
+  Target,
+  UserCheck,
+} from 'lucide-react';
 import Footer from './components/Footer';
 import MeikoCareerAffiliate from './components/MeikoCareerAffiliate';
 
+function Fact({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="metric-tile">
+      <div className="text-2xl font-black text-[var(--foreground)]">{value}</div>
+      <div className="mt-1 text-xs font-bold text-[var(--ink-soft)]">{label}</div>
+    </div>
+  );
+}
+
+function SectionHeading({
+  eyebrow,
+  title,
+  description,
+}: {
+  eyebrow: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="max-w-3xl">
+      <div className="eyebrow">{eyebrow}</div>
+      <h2 className="mt-4 text-3xl font-black text-[var(--foreground)] md:text-4xl">{title}</h2>
+      <p className="mt-4 text-base leading-8 text-[var(--ink-soft)] md:text-lg">{description}</p>
+    </div>
+  );
+}
+
+function NoteRow({ children }: { children: React.ReactNode }) {
+  return (
+    <li className="flex gap-3">
+      <CheckCircle2 className="mt-1 shrink-0 text-[var(--accent)]" size={18} />
+      <span className="text-sm leading-7 text-[#415159]">{children}</span>
+    </li>
+  );
+}
+
+function OutputCard({
+  icon: Icon,
+  title,
+  text,
+}: {
+  icon: React.ComponentType<{ size?: number; className?: string }>;
+  title: string;
+  text: string;
+}) {
+  return (
+    <div className="output-card">
+      <div className="output-card-icon">
+        <Icon size={20} />
+      </div>
+      <h3 className="mt-4 text-lg font-black text-[var(--foreground)]">{title}</h3>
+      <p className="mt-3 text-sm leading-7 text-[var(--ink-soft)]">{text}</p>
+    </div>
+  );
+}
+
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 flex flex-col">
+    <div className="page-shell flex min-h-screen flex-col">
+      <main className="flex-grow">
+        <section className="relative min-h-[calc(100svh-72px)] overflow-hidden border-b border-[var(--line)]">
+          <Image
+            src="/characters/banners_clean/INTJ.png"
+            alt="MBTI.AI診断結果のキャラクタービジュアル"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[68%_center]"
+          />
+          <div className="absolute inset-0 bg-[#f8fbf7]/76" />
+          <div className="absolute inset-y-0 left-0 w-full bg-[linear-gradient(90deg,#f8fbf7_0%,rgba(248,251,247,0.96)_38%,rgba(248,251,247,0.42)_76%,rgba(248,251,247,0.1)_100%)]" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(0deg,#f7f3ea_0%,rgba(247,243,234,0)_100%)]" />
 
-      {/* Hero Section */}
-      <main className="flex-grow flex flex-col justify-center max-w-4xl mx-auto px-6 py-20 text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
-        <div>
-          <div className="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-800 text-xs font-bold mb-8 tracking-wider uppercase">
-            AI時代のキャリア生存戦略診断
-          </div>
-
-          <h1 className="text-3xl md:text-5xl font-black text-slate-900 mb-8 tracking-tight leading-normal">
-            あなたの仕事、5年後に消滅していませんか？
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500 mt-2 block">
-              あなたの『AI時代の最適キャリア』がわかります
-            </span>
-          </h1>
-
-          <p className="text-lg text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed font-medium">
-            AI時代に自分の理解と適職を知らないと、いつの間にかAIに代替されてしまう。<br />
-            16Personalitiesをベースに、あなたの強みとAI時代に最適なキャリアパスを提示します。
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/diagnosis" className="w-full sm:w-auto">
-              <button className="group relative w-full sm:w-auto px-8 py-4 bg-slate-900 text-white font-bold text-lg rounded-full hover:bg-slate-800 transition-all shadow-xl hover:shadow-2xl overflow-hidden">
-                <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                <span className="relative flex items-center justify-center gap-2">
-                  <Sparkles size={20} className="group-hover:animate-pulse" />
-                  診断する
-                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                </span>
-              </button>
-            </Link>
-
-            <Link href="/types" className="w-full sm:w-auto">
-              <button className="group w-full sm:w-auto px-8 py-4 bg-white text-slate-600 font-bold text-lg rounded-full hover:bg-slate-50 transition-all border border-slate-200 shadow-sm hover:shadow-md flex items-center justify-center gap-2">
-                <Search size={20} />
-                全タイプを見る
-                <ArrowRight size={20} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-              </button>
-            </Link>
-          </div>
-        </div>
-
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-24 text-left">
-          <div className="p-6 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-4">
-              <BrainCircuit size={24} />
-            </div>
-            <h3 className="font-bold text-slate-900 mb-2">独自アルゴリズム解析</h3>
-            <p className="text-sm text-slate-500 leading-relaxed">
-              従来の適性診断とは一線を画す、AI時代特化型のロジックであなたの潜在能力を測定します。
-            </p>
-          </div>
-          <div className="p-6 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600 mb-4">
-              <Network size={24} />
-            </div>
-            <h3 className="font-bold text-slate-900 mb-2">生存戦略の提案</h3>
-            <p className="text-sm text-slate-500 leading-relaxed">
-              単なる性格診断ではなく、具体的にどのようにキャリアを形成すべきかの戦略を提示します。
-            </p>
-          </div>
-          <div className="p-6 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center text-pink-600 mb-4">
-              <ShieldAlert size={24} />
-            </div>
-            <h3 className="font-bold text-slate-900 mb-2">リスク回避</h3>
-            <p className="text-sm text-slate-500 leading-relaxed">
-              あなたのタイプが陥りやすいキャリアの罠や、AIに代替されるリスクを事前に把握できます。
-            </p>
-          </div>
-        </div>
-
-        {/* Latest Articles */}
-        <div className="mt-24 text-left">
-          <div className="flex items-center gap-2 mb-8">
-            <BookOpen className="text-slate-400" size={20} />
-            <h2 className="text-xl font-bold text-slate-900">最新のキャリア戦略コラム</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Link href="/articles/career-strategy-2026" className="group block h-full">
-              <div className="h-full p-8 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all group-hover:border-blue-200 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-50 to-transparent rounded-bl-full opacity-50"></div>
-                <div className="relative">
-                  <div className="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-wider text-blue-600 uppercase bg-blue-50 rounded-full border border-blue-100">
-                    Must Read
-                  </div>
-                  <h3 className="font-bold text-xl text-slate-900 mb-3 group-hover:text-blue-600 transition-colors leading-snug">
-                    2026年の分かれ道：<br />AIに「代替される人」と「価値が暴騰する人」
-                  </h3>
-                  <p className="text-sm text-slate-500 leading-relaxed mb-6 line-clamp-3">
-                    「今の仕事を続けていて、10年後も大丈夫だろうか？」<br />
-                    生成AIがインフラ化した今、キャリアのルールは根本から変わりました。市場価値を最大化する「新・キャリア戦略」を徹底解説。
-                  </p>
-                  <div className="flex items-center text-blue-600 text-sm font-bold group-hover:underline decoration-blue-200 underline-offset-4">
-                    記事を読む
-                    <ArrowRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
+          <div className="section-wrap relative flex min-h-[calc(100svh-72px)] flex-col justify-between py-14 md:py-20">
+            <div className="max-w-4xl pt-4 md:pt-10">
+              <div className="eyebrow">
+                <Sparkles size={15} />
+                AI時代の就活キャリア診断
               </div>
-            </Link>
+
+              <h1 className="mt-7 max-w-4xl text-4xl font-black leading-[1.12] text-[var(--foreground)] md:text-6xl">
+                MBTI.AI
+                <span className="mt-3 block text-3xl leading-[1.18] md:text-5xl">
+                  自己分析を、ES・面接で使える言葉へ。
+                </span>
+              </h1>
+
+              <p className="mt-6 max-w-2xl text-lg leading-9 text-[#415159]">
+                性格タイプをもとに、強み、つまずきやすい場面、AI時代に伸ばしやすい役割を整理します。
+                結果は、自己分析、ES、面接、企業選びの下書きとして使える就活レポートです。
+              </p>
+
+              <div className="mt-7 flex flex-wrap gap-2">
+                {['自己分析', 'ESの軸', '面接の話し方', '企業選び'].map((item) => (
+                  <span key={item} className="signal-chip">{item}</span>
+                ))}
+              </div>
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link href="/diagnosis" className="btn-primary px-7 py-4 text-base">
+                  診断を始める
+                  <ArrowRight size={18} />
+                </Link>
+                <Link href="/types/INTJ" className="btn-secondary px-7 py-4 text-base">
+                  結果例を見る
+                </Link>
+              </div>
+            </div>
+
+            <div className="mt-12 grid gap-5 pb-2 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
+              <div className="grid max-w-xl grid-cols-3 gap-5">
+                <Fact label="質問数" value="32問" />
+                <Fact label="所要時間" value="3-5分" />
+                <Fact label="診断タイプ" value="16" />
+              </div>
+              <div className="hero-output-strip">
+                {[
+                  ['Strength', '仕事で出やすい強み'],
+                  ['Risk', '面接で補足すべき弱点'],
+                  ['Action', '次に試す職種・学習テーマ'],
+                ].map(([label, text]) => (
+                  <div key={label} className="hero-output-item">
+                    <div className="text-[11px] font-black uppercase text-[var(--accent)]">{label}</div>
+                    <div className="mt-1 text-sm font-bold leading-6 text-[var(--foreground)]">{text}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
+        </section>
+
+        <section className="py-16 md:py-20">
+          <div className="section-wrap">
+            <SectionHeading
+              eyebrow="診断の考え方"
+              title="就活で聞かれることに、そのまま接続します。"
+              description="AIに代替されるかどうかを大げさに煽るのではなく、あなたの考え方と仕事の向き合い方を整理します。結果は、自己PRや志望動機を考えるための下書きとして使えます。"
+            />
+
+            <div className="mt-12 grid gap-4 md:grid-cols-3">
+              {[
+                {
+                  title: '質問に答える',
+                  text: '直感で選べる32問。正解を探すより、普段の判断に近い選択を重視します。',
+                  icon: ClipboardList,
+                },
+                {
+                  title: '傾向を読む',
+                  text: '性格タイプをAI時代の働き方に置き換え、強みと注意点を短く整理します。',
+                  icon: Compass,
+                },
+                {
+                  title: '就活の言葉にする',
+                  text: '自己PR、面接で話すエピソード、企業選びの軸まで落とし込みます。',
+                  icon: Lightbulb,
+                },
+              ].map(({ title, text, icon: Icon }) => (
+                <div key={title} className="ui-panel rounded-lg p-6">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[var(--accent-soft)] text-[var(--accent)]">
+                    <Icon size={22} />
+                  </div>
+                  <h3 className="mt-5 text-xl font-black text-[var(--foreground)]">{title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[var(--ink-soft)]">{text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-y border-[var(--line)] bg-white/45 py-16 md:py-20">
+          <div className="section-wrap grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
+            <SectionHeading
+              eyebrow="結果でわかること"
+              title="タイプ名だけで終わらせません。"
+              description="読み物として気持ちよく読めて、あとから見返しても使える粒度にしています。"
+            />
+
+            <div className="grid gap-4 md:grid-cols-2">
+              {[
+                ['自己PRの材料', '無理に盛らず、仕事で出やすい強みを具体的に整理します。'],
+                ['面接での注意点', '弱みに聞こえやすい傾向を先に知り、補足の仕方まで書きます。'],
+                ['AIとの距離感', '任せること、任せないこと、補助に使うことを分けて考えます。'],
+                ['企業選びの軸', '向いている環境や避けたい働き方を現実的に提案します。'],
+              ].map(([title, text]) => (
+                <div key={title} className="ui-panel rounded-lg p-5">
+                  <h3 className="text-base font-black text-[var(--foreground)]">{title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[var(--ink-soft)]">{text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-16 md:py-20">
+          <div className="section-wrap">
+            <SectionHeading
+              eyebrow="就活アウトプット"
+              title="診断結果を、応募前の準備に変換する。"
+              description="AIRSは性格診断だけで完結させず、次のアクションに使える形まで整理します。"
+            />
+            <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              <OutputCard
+                icon={GraduationCap}
+                title="自己分析"
+                text="強み、判断のクセ、モチベーションが上がる環境を短く言語化します。"
+              />
+              <OutputCard
+                icon={FileText}
+                title="ESの下書き"
+                text="自己PRで使いやすい表現と、エピソード選びの方向性を出します。"
+              />
+              <OutputCard
+                icon={UserCheck}
+                title="面接対策"
+                text="強みの伝え方、弱みの補足、深掘り質問への備えを整理します。"
+              />
+              <OutputCard
+                icon={BriefcaseBusiness}
+                title="職種選び"
+                text="相性の良い役割、避けたい環境、最初に調べる業界を提示します。"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="py-16 md:py-20">
+          <div className="section-wrap grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
+            <div className="ui-panel rounded-lg p-6">
+              <div className="flex items-center gap-3 border-b border-[var(--line)] pb-4">
+                <MessageCircle className="text-[var(--warm)]" size={22} />
+                <div className="text-sm font-black text-[var(--foreground)]">レポートの読み心地</div>
+              </div>
+              <ul className="mt-6 space-y-4">
+                <NoteRow>専門用語を並べすぎず、自分の状況に置き換えやすい言葉で書きます。</NoteRow>
+                <NoteRow>「あなたはこうです」と決めつけず、傾向として読める表現にしています。</NoteRow>
+                <NoteRow>不安だけで終わらず、明日試せる小さな行動まで入れています。</NoteRow>
+              </ul>
+            </div>
+
+            <div>
+              <div className="eyebrow">
+                <ShieldCheck size={16} />
+                無料で診断できます
+              </div>
+              <h2 className="mt-5 text-3xl font-black text-[var(--foreground)] md:text-4xl">
+                まずは今の強みを、就活で話せる言葉にしてみる。
+              </h2>
+              <p className="mt-4 max-w-xl text-base leading-8 text-[var(--ink-soft)] md:text-lg">
+                結果はその場で表示されます。個人情報の入力は不要です。
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link href="/diagnosis" className="btn-primary px-8 py-4 text-base">
+                  診断を始める
+                </Link>
+                <Link href="/types" className="btn-secondary px-8 py-4 text-base">
+                  タイプ一覧を見る
+                </Link>
+              </div>
+              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                {[
+                  [BarChart3, '診断結果はレーダーと文章で確認'],
+                  [Target, '次に試す行動まで提示'],
+                ].map(([Icon, text]) => {
+                  const TypedIcon = Icon as React.ComponentType<{ size?: number }>;
+                  return (
+                    <div key={text as string} className="flex items-center gap-3 rounded-lg border border-[var(--line)] bg-white/72 p-4">
+                      <TypedIcon size={19} />
+                      <span className="text-sm font-bold leading-6 text-[var(--foreground)]">{text as string}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div className="section-wrap pb-8">
+          <MeikoCareerAffiliate />
         </div>
-        {/* Affiliate Section */}
-        <MeikoCareerAffiliate />
       </main>
 
       <Footer />

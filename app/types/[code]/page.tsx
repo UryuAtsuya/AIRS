@@ -5,9 +5,11 @@ import Footer from '../../components/Footer';
 import AdUnit from '../../components/AdUnit';
 import { airsTypes } from '../airs';
 import { getPersona } from '../../data/personas';
+import ResultDashboardIntro from '../../components/result/ResultDashboardIntro';
 import ResultHeader from '../../components/result/ResultHeader';
 import TraitBarsWithSession from '../../components/result/TraitBarsWithSession';
 import ResultContent from '../../components/result/ResultContent';
+import ResultOffers from '../../components/result/ResultOffers';
 
 export async function generateStaticParams() {
     return airsTypes.map((type) => ({
@@ -70,8 +72,8 @@ export default async function TypeDetailPage({ params }: { params: Promise<{ cod
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
-            <main className="flex-grow w-full">
+        <div className="page-shell flex min-h-screen flex-col font-sans text-[var(--foreground)]">
+            <main className="w-full flex-grow">
 
                 <ResultHeader
                     persona={persona}
@@ -79,13 +81,18 @@ export default async function TypeDetailPage({ params }: { params: Promise<{ cod
                     showRetakeButton={false}
                 />
 
-                {/* AdUnit Top */}
-                <div className="max-w-4xl mx-auto px-6 mt-8">
+                <ResultDashboardIntro
+                    persona={persona}
+                    type={type}
+                    staticScores={staticScores}
+                />
+
+                <div className="mx-auto mt-2 max-w-4xl px-6">
                     <AdUnit slotId={`detail-top-${type.code}`} />
                 </div>
 
                 {/* TraitBars: 診断後はsessionStorageのスコア、直アクセスは静的スコア */}
-                <div className="border-b border-slate-100 bg-white">
+                <div className="border-y border-[var(--line)] bg-white/48">
                     <TraitBarsWithSession
                         staticScores={staticScores}
                         group={type.group}
@@ -95,8 +102,10 @@ export default async function TypeDetailPage({ params }: { params: Promise<{ cod
 
                 <ResultContent persona={persona} />
 
+                <ResultOffers persona={persona} type={type} />
+
                 {/* AdUnit Bottom */}
-                <div className="max-w-4xl mx-auto px-6 mb-12">
+                <div className="mx-auto mb-12 max-w-4xl px-6">
                     <AdUnit slotId={`detail-bottom-${type.code}`} />
                 </div>
 

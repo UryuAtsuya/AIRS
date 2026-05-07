@@ -20,7 +20,7 @@ export default function NextActions({ actions }: NextActionsProps) {
                 <div className="flex justify-between items-end mb-8">
                     <div>
                         <h3 className="text-2xl font-bold text-slate-900 tracking-tight">
-                            Next Actions
+                            次に見ておきたいこと
                         </h3>
                         <p className="text-sm text-slate-500 mt-1">
                             診断結果を次の行動につなげるための導線

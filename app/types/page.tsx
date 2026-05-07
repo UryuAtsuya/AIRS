@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Footer from '../components/Footer';
 import TypeCard from '../components/TypeCard';
 import { airsTypes } from './airs';
-import { Sparkles, Search, Filter } from 'lucide-react';
+import { Filter, Search, Sparkles } from 'lucide-react';
 
 export default function TypesPage() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -21,37 +21,30 @@ export default function TypesPage() {
     const groups = ["All", "Analysts", "Diplomats", "Sentinels", "Explorers"];
 
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-blue-100 selection:text-blue-900">
-
-            <main className="flex-grow max-w-7xl mx-auto px-6 py-12 w-full animate-fade-in">
-
-                {/* Dashboard Header */}
-                <div className="mb-12 text-center max-w-2xl mx-auto">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold mb-4 tracking-wider uppercase">
-                        <Sparkles size={12} />
+        <div className="page-shell flex min-h-screen flex-col">
+            <main className="mx-auto w-full max-w-7xl flex-grow px-6 py-12">
+                <div className="mb-12 max-w-3xl">
+                    <div className="eyebrow">
+                        <Sparkles size={14} />
                         A.I.R.S. Database
                     </div>
-                    <h1 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">
-                        Type <span className="text-gradient-cyber">Dashboard</span>
+                    <h1 className="mt-5 text-4xl font-black text-[var(--foreground)] md:text-5xl">
+                        16タイプのキャリア戦略を見る
                     </h1>
-                    <p className="text-slate-500 text-sm leading-relaxed">
-                        全16タイプの生存戦略データベース。<br />
-                        AI時代におけるあなたの「勝ち筋」と「負け筋」を確認してください。
+                    <p className="mt-4 text-base leading-8 text-[var(--ink-soft)] md:text-lg">
+                        全タイプの強み、注意点、AI時代の役割を横断して確認できます。診断前の比較にも、結果の読み直しにも使えます。
                     </p>
                 </div>
 
-                {/* Filters & Search */}
-                <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-10 sticky top-20 z-40 bg-slate-50/90 backdrop-blur-sm py-4 border-b border-slate-100">
-
-                    {/* Filter Tabs */}
-                    <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto no-scrollbar">
+                <div className="sticky top-20 z-40 mb-10 flex flex-col gap-4 border-y border-[var(--line)] bg-[#f7f3ea]/92 py-4 backdrop-blur md:flex-row md:items-center md:justify-between">
+                    <div className="no-scrollbar flex w-full gap-2 overflow-x-auto pb-2 md:w-auto md:pb-0">
                         {groups.map((group) => (
                             <button
                                 key={group}
                                 onClick={() => setFilterGroup(group)}
-                                className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap ${filterGroup === group
-                                    ? 'bg-slate-900 text-white shadow-lg shadow-slate-200'
-                                    : 'bg-white text-slate-500 hover:bg-slate-100 border border-slate-200'
+                                className={`whitespace-nowrap rounded-md px-4 py-2 text-xs font-black transition-all ${filterGroup === group
+                                    ? 'bg-[var(--foreground)] text-white shadow-[0_12px_24px_rgba(24,35,43,0.14)]'
+                                    : 'border border-[var(--line)] bg-white/86 text-[var(--ink-soft)] hover:bg-[var(--paper-soft)]'
                                     }`}
                             >
                                 {group}
@@ -59,33 +52,29 @@ export default function TypesPage() {
                         ))}
                     </div>
 
-                    {/* Search Bar */}
                     <div className="relative w-full md:w-auto">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--ink-muted)]" size={16} />
                         <input
                             type="text"
-                            placeholder="Type name or code..."
+                            placeholder="タイプ名・コードで検索"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="pl-10 pr-4 py-2.5 rounded-full bg-white border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm w-full md:w-64 placeholder:text-slate-300"
+                            className="w-full rounded-md border border-[var(--line)] bg-white/90 py-2.5 pl-10 pr-4 text-sm transition-all placeholder:text-[var(--ink-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-4 focus:ring-[#d7e5e2] md:w-72"
                         />
                     </div>
                 </div>
 
-                {/* Types Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pb-20">
-                    {filteredTypes.map((type, index) => (
-                        <div key={type.id} className="animate-slide-up" style={{ animationDelay: `${(index % 4) * 0.05}s` }}>
-                            <TypeCard type={type} />
-                        </div>
+                <div className="grid grid-cols-1 gap-6 pb-20 sm:grid-cols-2 lg:grid-cols-4">
+                    {filteredTypes.map((type) => (
+                        <TypeCard key={type.id} type={type} />
                     ))}
                 </div>
 
                 {filteredTypes.length === 0 && (
-                    <div className="text-center py-20 text-slate-400">
-                        <Filter size={48} className="mx-auto mb-4 opacity-20" />
-                        <p className="text-sm font-bold">No types found.</p>
-                        <p className="text-xs">Try adjusting your search or filters.</p>
+                    <div className="py-20 text-center text-[var(--ink-muted)]">
+                        <Filter size={48} className="mx-auto mb-4 opacity-30" />
+                        <p className="text-sm font-black">一致するタイプが見つかりませんでした。</p>
+                        <p className="mt-2 text-xs">検索語かフィルターを変えてください。</p>
                     </div>
                 )}
             </main>

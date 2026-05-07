@@ -33,36 +33,32 @@ export default function QuestionSelect({
 
     // Color mapping
     const getColorClass = (val: number) => {
-        if (val === 0) return 'bg-slate-300 hover:bg-slate-400';
+        if (val === 0) return 'bg-[#b9ab96] hover:bg-[#a89880]';
         if (val > 0) {
-            // Agree side - green/teal
             switch (val) {
-                case 1: return 'bg-teal-300 hover:bg-teal-400';
-                case 2: return 'bg-teal-400 hover:bg-teal-500';
-                case 3: return 'bg-teal-500 hover:bg-teal-600';
-                default: return 'bg-teal-400';
+                case 1: return 'bg-[#b8d8d5] hover:bg-[#a0cbc7]';
+                case 2: return 'bg-[#5d9da0] hover:bg-[#458b8f]';
+                case 3: return 'bg-[var(--accent)] hover:bg-[var(--accent-strong)]';
+                default: return 'bg-[#5d9da0]';
             }
         } else {
-            // Disagree side - purple/indigo
             switch (val) {
-                case -1: return 'bg-purple-300 hover:bg-purple-400';
-                case -2: return 'bg-purple-400 hover:bg-purple-500';
-                case -3: return 'bg-purple-500 hover:bg-purple-600';
-                default: return 'bg-purple-400';
+                case -1: return 'bg-[#efd9c8] hover:bg-[#e6c9b3]';
+                case -2: return 'bg-[#cc8f70] hover:bg-[#ba7c5d]';
+                case -3: return 'bg-[var(--warm)] hover:bg-[#8e4f34]';
+                default: return 'bg-[#cc8f70]';
             }
         }
     };
 
     return (
         <div className="w-full max-w-3xl mx-auto">
-            {/* Labels */}
-            <div className="flex justify-between items-center mb-6 px-4">
-                <span className="text-sm font-medium text-purple-600">{disagreeLabel}</span>
-                <span className="text-sm font-medium text-teal-600">{agreeLabel}</span>
+            <div className="mb-6 flex items-center justify-between px-1 sm:px-4">
+                <span className="text-sm font-semibold text-[var(--warm)]">{disagreeLabel}</span>
+                <span className="text-sm font-semibold text-[var(--accent)]">{agreeLabel}</span>
             </div>
 
-            {/* Circular buttons */}
-            <div className="flex justify-center items-center gap-2 md:gap-3">
+            <div className="flex items-center justify-center gap-2 md:gap-3">
                 {options.map((opt) => (
                     <button
                         key={opt}
@@ -74,15 +70,15 @@ export default function QuestionSelect({
                             rounded-full
                             transition-all
                             duration-200
-                            border-2
+                            border
                             ${value === opt
-                                ? 'border-slate-800 ring-4 ring-slate-200 scale-110 shadow-lg'
-                                : 'border-transparent hover:border-slate-300'
+                                ? 'border-[var(--foreground)] ring-4 ring-[#d7e5e2] scale-110 shadow-lg'
+                                : 'border-white/80 hover:border-[var(--line-strong)]'
                             }
                             ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
                             focus:outline-none
                             focus:ring-4
-                            focus:ring-slate-200
+                            focus:ring-[#d7e5e2]
                         `}
                         aria-label={`選択肢 ${opt}`}
                         aria-pressed={value === opt}
